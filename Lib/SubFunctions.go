@@ -2,7 +2,6 @@ package Lib
 
 import (
 	"fmt"
-	"os"
 	"strings"
 )
 
@@ -26,11 +25,11 @@ func HandleWords(color string, reset string, subString string, slices []string, 
 
 // Prints the ASCII ART for each character in each word and updates the output string
 func HandleCharacters(color string, reset string, subString string, word string, slices []string) string {
-	match, found := matchingStr(word, subString)
-	if !found {
-		fmt.Printf("Error: %s has no match\n", subString)
-		os.Exit(0)
-	}
+	match, _ := matchingStr(word, subString)
+	// if !found {
+	// 	fmt.Printf("Error: %s has no match\n", subString)
+	// 	os.Exit(0)
+	// }
 	var startIndex int
 	output := ""
 	for i := 0; i < 8; i++ {
