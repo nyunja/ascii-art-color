@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func AsciiArt(color, reset, mainString, subString string) string {
+func AsciiArt(color, reset, mainString, subString, fileName string) string {
 	// Exits program if mainString or subString is empty
 	if mainString == "" || subString == "" {
 		return ""
@@ -30,7 +30,12 @@ func AsciiArt(color, reset, mainString, subString string) string {
 	words := strings.Split(mainString, "\n")
 
 	// Set and check if banner file is valid
-	file := "standard.txt"
+	file := ""
+	if len(fileName) == 0 {
+		file = "standard.txt"
+	} else {
+		file = fileName
+	}
 	if !ValidFile(file) {
 		fmt.Println("Incorrect file name, program only accepts thinkertoy.txt, standard.txt or shadow.txt")
 		return ""

@@ -25,9 +25,9 @@ func main() {
 	}
 
 	// // Check what user input contains and returns required variables
-	color, reset, mainString, subString := Lib.CheckInput(input)
+	color, reset, mainString, subString, fileName := Lib.CheckInput(input)
 	// fmt.Printf("main : %s sun : %s  color : %s reset : %s", mainString, subString, color, reset)
 
 	// Call the AsciiArt function to handle input
-	Lib.AsciiArt(color, reset, mainString, subString)
+	Lib.AsciiArt(color, reset, mainString, subString, fileName)
 }
