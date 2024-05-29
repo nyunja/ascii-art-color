@@ -32,7 +32,7 @@ func TestAsciiArt(t *testing.T) {
 	os.Stdout = nil
 
 	// Store output string from Lib.AsciiArt
-	output := Lib.AsciiArt("","","","Hello")
+	output := Lib.AsciiArt("","","","Hello", "")
 
 	// Split output into 8 lines
 	lines := strings.Split(output, "\n")
