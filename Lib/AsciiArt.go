@@ -36,10 +36,6 @@ func AsciiArt(color, reset, mainString, subString, fileName string) string {
 	} else {
 		file = fileName
 	}
-	if !ValidFile(file) {
-		fmt.Println("Incorrect file name, program only accepts thinkertoy.txt, standard.txt or shadow.txt")
-		return ""
-	}
 
 	// Read banner file
 	content, err := os.ReadFile(file)

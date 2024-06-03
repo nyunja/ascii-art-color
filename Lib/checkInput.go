@@ -40,7 +40,7 @@ func CheckInput(input []string) (string, string, string, string, string) {
 		}
 		color, reset = colorPicker(colorFlag)
 	} else if len(input) == 3 {
-		if len(input[2]) == 0 || len(input[1]) == 0 || len(input[0]) == 0  {
+		if len(input[2]) == 0 || len(input[1]) == 0 || len(input[0]) == 0 {
 			fmt.Println("error: arguments cannot be empty strings. please provide inputs.")
 			os.Exit(0)
 		}
