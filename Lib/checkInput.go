@@ -80,27 +80,7 @@ func CheckInput(input []string) (string, string, string, string, string) {
 				fmt.Println(`EX: go run . --color=<color> <letters to be colored> "something"`)
 				os.Exit(0)
 			}
-			// else {
-			// 	mainString = input[2]
-			// 	subString = input[1]
-			// }
 		}
-		// else if input[0] == "-standard" || input[0] == "-shadow" || input[0] == "-thinkertoy" {
-		// 	if len(input[1]) == 0 {
-		// 		fmt.Println("error: arguments cannot be empty strings. please provide inputs.")
-		// 		os.Exit(0)
-		// 	}
-		// 	mainString = input[2]
-		// 	subString = input[1]
-		// 	fileName = input[0][1:] + ".txt"
-		// } else {
-		// 	fmt.Println("Usage: go run . [OPTION] [STRING]")
-		// 	fmt.Println(`EX: go run . --color=<color> <letters to be colored> "something"`)
-		// 	os.Exit(0)
-		// }
-		// colorFlag = input[0]
-		// subString = input[1]
-		// mainString = input[2]
 		color, reset = colorPicker(colorFlag)
 	}
 	return color, reset, mainString, subString, fileName
