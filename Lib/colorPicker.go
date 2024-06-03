@@ -43,10 +43,5 @@ func colorPicker(colorFlag string) (string, string) {
 		}
 	}
 
-	// else {
-	// 	fmt.Println("Usage: go run . [OPTION] [STRING]")
-	// 	fmt.Println(`EX: go run . --color=<color> <letters to be colored> "something"`)
-	// 	os.Exit(0)
-	// }
 	return color, reset
 }
