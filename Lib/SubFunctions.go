@@ -91,16 +91,3 @@ func IsPrintable(input string) bool {
 	}
 	return status
 }
-
-// Check if the banner file is valid
-func ValidFile(file string) bool {
-	fileNames := []string{"standard.txt", "shadow.txt", "thinkertoy.txt"}
-	var status bool
-
-	for _, flName := range fileNames {
-		if file == flName {
-			status = true
-		}
-	}
-	return status
-}
