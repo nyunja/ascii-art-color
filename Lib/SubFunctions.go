@@ -94,6 +94,7 @@ func IsPrintable(input string) bool {
 
 func PrintError() {
 	fmt.Println("Usage: go run . [OPTION] [STRING]")
+	fmt.Println()
 	fmt.Println(`EX: go run . --color=<color> <letters to be colored> "something"`)
 	os.Exit(0)
 }
