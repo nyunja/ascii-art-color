@@ -1,10 +1,5 @@
 package Lib
 
-import (
-	"fmt"
-	"os"
-)
-
 func CheckInput(input []string) (string, string, string, string, string) {
 	// Initialize utility variables
 	colorFlag := ""
@@ -19,8 +14,7 @@ func CheckInput(input []string) (string, string, string, string, string) {
 
 		// Exit program if single input is empty
 		if len(input[0]) == 0 {
-			fmt.Println("error: arguments cannot be empty strings. please provide inputs.")
-			os.Exit(0)
+			PrintError()
 		}
 		mainString = input[0]
 		subString = input[0]
@@ -29,8 +23,7 @@ func CheckInput(input []string) (string, string, string, string, string) {
 	} else if len(input) == 2 {
 		// Exit program if any of the two input strings are empty
 		if len(input[0]) == 0 || len(input[1]) == 0 {
-			fmt.Println("error: arguments cannot be empty strings. please provide inputs.")
-			os.Exit(0)
+			PrintError()
 		}
 
 		// If first argument is a valid color flag, assign it to colorFlag
@@ -53,8 +46,7 @@ func CheckInput(input []string) (string, string, string, string, string) {
 	} else if len(input) == 3 {
 		// Exit program if any of the three arguments are empty
 		if len(input[2]) == 0 || len(input[1]) == 0 || len(input[0]) == 0 {
-			fmt.Println("error: arguments cannot be empty strings. please provide inputs.")
-			os.Exit(0)
+			PrintError()
 		}
 
 		// If first argument is a valid color flag, assign it to colorFlag
@@ -87,8 +79,7 @@ func CheckInput(input []string) (string, string, string, string, string) {
 	} else if len(input) == 4 {
 		// Exit program if any of the three arguments are empty
 		if len(input[0]) == 0 || len(input[1]) == 0 || len(input[2]) == 0 || len(input[3]) == 0 {
-			fmt.Println("error: arguments cannot be empty strings. please provide inputs.")
-			os.Exit(0)
+			PrintError()
 		}
 
 		// If first argument is a valid color flag, assign it to colorFlag
