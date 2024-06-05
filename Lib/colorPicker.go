@@ -21,6 +21,11 @@ func colorPicker(colorFlag string) (string, string) {
 		"indigo":  "\033[38;5;57m",
 		"violet":  "\033[38;5;129m",
 		"purple":  "\033[38;5;129m",
+		"pink":    "\033[38;5;218m",
+		"brown":   "\033[38;5;130m",
+		"olive":   "\033[38;5;58m",
+		"teal":    "\033[38;5;30m",
+		"maroon":  "\033[38;5;52m",
 	}
 
 	// Set default color if colorFlag is empty
