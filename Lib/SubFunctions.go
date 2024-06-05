@@ -2,6 +2,7 @@ package Lib
 
 import (
 	"fmt"
+	"os"
 	"strings"
 )
 
@@ -67,7 +68,6 @@ func HandleCharacters(color string, reset string, subString string, word string,
 func EscapeSequence(input string) bool {
 	allowedEscapes := []string{"\\a", "\\b", "\\t", "\\v", "\\f", "\\r"}
 	for _, unprint := range allowedEscapes {
-
 		// Detect escape sequence characters in input string
 		if strings.Contains(input, unprint) {
 			return true
@@ -90,4 +90,10 @@ func IsPrintable(input string) bool {
 		}
 	}
 	return status
+}
+
+func PrintError() {
+	fmt.Println("Usage: go run . [OPTION] [STRING]")
+	fmt.Println(`EX: go run . --color=<color> <letters to be colored> "something"`)
+	os.Exit(0)
 }
