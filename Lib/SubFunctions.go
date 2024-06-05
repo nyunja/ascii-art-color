@@ -11,6 +11,7 @@ func HandleWords(color string, reset string, subString string, slices []string, 
 	var output string
 	countSpaces := 0
 
+	// Print one fewer newline for every empty string
 	for _, word := range words {
 		if word == "" {
 			countSpaces++
@@ -92,6 +93,7 @@ func IsPrintable(input string) bool {
 	return status
 }
 
+// Prints the standard error message
 func PrintError() {
 	fmt.Println("Usage: go run . [OPTION] [STRING]")
 	fmt.Println()
