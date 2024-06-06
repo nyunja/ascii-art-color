@@ -67,6 +67,8 @@ If the program is not provided with the correct number and format of arguments, 
 
 ```
 Usage: go run . [OPTION] [STRING]
+
+EX: go run . --color=<color> <letters to be colored> "something"
 ```
 Example:
 ```
@@ -96,6 +98,7 @@ go run . "Hello"
 ## Notes
 
 - The `<letters-to-be-colored>` argument should be enclosed in double quotes or single quotes if they contain special characters.
+- The `<letters-to-be-colored>` and `"something"` arguments are case-sensitive and will only respect matching cases.
 - Available colors include: red, green, blue, and others supported by your terminal.
 - Available banner styles include: standard, shadow, and thinkertoy.
 ## Authors

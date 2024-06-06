@@ -1,10 +1,5 @@
 package Lib
 
-import (
-	"fmt"
-	"os"
-)
-
 func CheckInput(input []string) (string, string, string, string, string) {
 	// Initialize utility variables
 	colorFlag := ""
@@ -19,8 +14,7 @@ func CheckInput(input []string) (string, string, string, string, string) {
 
 		// Exit program if single input is empty
 		if len(input[0]) == 0 {
-			fmt.Println("error: arguments cannot be empty strings. please provide inputs.")
-			os.Exit(0)
+			PrintError()
 		}
 		mainString = input[0]
 		subString = input[0]
@@ -29,8 +23,7 @@ func CheckInput(input []string) (string, string, string, string, string) {
 	} else if len(input) == 2 {
 		// Exit program if any of the two input strings are empty
 		if len(input[0]) == 0 || len(input[1]) == 0 {
-			fmt.Println("error: arguments cannot be empty strings. please provide inputs.")
-			os.Exit(0)
+			PrintError()
 		}
 
 		// If first argument is a valid color flag, assign it to colorFlag
@@ -47,16 +40,13 @@ func CheckInput(input []string) (string, string, string, string, string) {
 
 			// Any other format is invalid; print error message, exit program
 		} else {
-			fmt.Println("Usage: go run . [OPTION] [STRING]")
-			fmt.Println(`EX: go run . --color=<color> <letters to be colored> "something"`)
-			os.Exit(0)
+			PrintError()
 		}
 		color, reset = colorPicker(colorFlag)
 	} else if len(input) == 3 {
 		// Exit program if any of the three arguments are empty
 		if len(input[2]) == 0 || len(input[1]) == 0 || len(input[0]) == 0 {
-			fmt.Println("error: arguments cannot be empty strings. please provide inputs.")
-			os.Exit(0)
+			PrintError()
 		}
 
 		// If first argument is a valid color flag, assign it to colorFlag
@@ -82,17 +72,14 @@ func CheckInput(input []string) (string, string, string, string, string) {
 
 			// Any other format is invalid; print error message, exit program
 		} else {
-			fmt.Println("Usage: go run . [OPTION] [STRING]")
-			fmt.Println(`EX: go run . --color=<color> <letters to be colored> "something"`)
-			os.Exit(0)
+			PrintError()
 		}
 		color, reset = colorPicker(colorFlag)
 
 	} else if len(input) == 4 {
 		// Exit program if any of the three arguments are empty
 		if len(input[0]) == 0 || len(input[1]) == 0 || len(input[2]) == 0 || len(input[3]) == 0 {
-			fmt.Println("error: arguments cannot be empty strings. please provide inputs.")
-			os.Exit(0)
+			PrintError()
 		}
 
 		// If first argument is a valid color flag, assign it to colorFlag
@@ -106,9 +93,7 @@ func CheckInput(input []string) (string, string, string, string, string) {
 				fileName = input[1][1:] + ".txt"
 			} else {
 				// Any other format is invalid; print error message, exit program
-				fmt.Println("Usage: go run . [OPTION] [STRING]")
-				fmt.Println(`EX: go run . --color=<color> <letters to be colored> "something"`)
-				os.Exit(0)
+				PrintError()
 			}
 		}
 
@@ -122,14 +107,12 @@ func CheckInput(input []string) (string, string, string, string, string) {
 // matchingStr checks if any character in the string s matches any character in the substring subString.
 // It returns a map indicating which characters match, and a boolean indicating if there was any match.
 func matchingStr(s string, subString string) (map[string]bool, bool) {
-
 	// Initialize a map to store matches
 	match := make(map[string]bool)
 
 	// Loop through each character in the string s, and subsequently through subString
 	for _, ch := range s {
 		for _, ch1 := range subString {
-
 			// If a character in subString matches a character in s, mark it as a match
 			if ch1 == ch {
 				match[string(ch1)] = true

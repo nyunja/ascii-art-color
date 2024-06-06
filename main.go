@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"colors/Lib"
@@ -13,15 +12,11 @@ func main() {
 
 	// Exits the program if the arguments passed are greater than 5
 	if len(input) > 4 {
-		fmt.Println("Usage: go run . [OPTION] [STRING]")
-		fmt.Println(`EX: go run . --color=<color> <letters to be colored> "something"`)
-		os.Exit(0)
+		Lib.PrintError()
 	}
 	// Exits the program if the arguments passed are less than 1
 	if len(input) == 0 {
-		fmt.Println("Usage: go run . [OPTION] [STRING]")
-		fmt.Println(`EX: go run . --color=<color> <letters to be colored> "something"`)
-		os.Exit(0)
+		Lib.PrintError()
 	}
 
 	// // Check what user input contains and returns required variables
