@@ -42,7 +42,7 @@ func colorPicker(colorFlag string) (string, string) {
 	if len(colorFlag) > 8 {
 		if hasPrefix(colorFlag, "--color=") {
 
-			key := colorFlag[8:]
+			key := trimSpace(colorFlag[8:])
 			if key == "" {
 				color = colors["white"]
 			} else {
