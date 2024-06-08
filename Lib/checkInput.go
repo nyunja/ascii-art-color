@@ -16,8 +16,16 @@ func CheckInput(input []string) (string, string, string, string, string) {
 		if len(input[0]) == 0 {
 			PrintError()
 		}
-		mainString = input[0]
-		subString = input[0]
+
+		if len(input[0]) >= 8 && hasPrefix(input[0], "--color=") {
+			colorFlag = input[0]
+
+			// if argument is has no color flag it is used as main string
+		} else {
+			mainString = input[0]
+			subString = input[0]
+		}
+
 		color, reset = colorPicker(colorFlag)
 
 	} else if len(input) == 2 {
