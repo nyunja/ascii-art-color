@@ -114,28 +114,28 @@ func CheckInput(input []string) (string, string, string, string, string) {
 
 // matchingStr checks if any character in the string s matches any character in the substring subString.
 // It returns a map indicating which characters match, and a boolean indicating if there was any match.
-func matchingStr(s string, subString string) (map[string]bool, bool) {
-	// Initialize a map to store matches
-	match := make(map[string]bool)
+// func matchingStr(s string, subString string) (map[string]bool, bool) {
+// 	// Initialize a map to store matches
+// 	match := make(map[string]bool)
 
-	// Loop through each character in the string s, and subsequently through subString
-	for _, ch := range s {
-		for _, ch1 := range subString {
-			// If a character in subString matches a character in s, mark it as a match
-			if ch1 == ch {
-				match[string(ch1)] = true
-			}
-		}
-	}
+// 	// Loop through each character in the string s, and subsequently through subString
+// 	for _, ch := range s {
+// 		for _, ch1 := range subString {
+// 			// If a character in subString matches a character in s, mark it as a match
+// 			if ch1 == ch {
+// 				match[string(ch1)] = true
+// 			}
+// 		}
+// 	}
 
-	// If there are matches, return the map of matches and true
-	if len(match) > 0 {
-		return match, true
-	}
+// 	// If there are matches, return the map of matches and true
+// 	if len(match) > 0 {
+// 		return match, true
+// 	}
 
-	// If there are no matches, return nil map and false
-	return nil, false
-}
+// 	// If there are no matches, return nil map and false
+// 	return nil, false
+// }
 
 // Detect whether a string starts with a particular set of characters
 func hasPrefix(s string, prefix string) bool {
