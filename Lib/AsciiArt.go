@@ -25,9 +25,12 @@ func AsciiArt(color, reset, mainString, subString, bannerFile string) string {
 	}
 	// Make new line characters consistent
 	mainString = strings.ReplaceAll(mainString, "\\n", "\n")
+	subString = strings.ReplaceAll(subString, "\\n", "\n")
 
-	// Split input into printable lines at the '\n' character
+
+	// Split inputs into printable lines at the '\n' character
 	words := strings.Split(mainString, "\n")
+	subStrings := strings.Split(subString, "\n")
 
 	// Set and check if banner file is valid
 	file := ""
@@ -61,5 +64,5 @@ func AsciiArt(color, reset, mainString, subString, bannerFile string) string {
 	}
 
 	// Print ASCII ART and return output string for testing
-	return HandleWords(color, reset, subString, slices, words)
+	return HandleWords(color, reset, subStrings, slices, words)
 }
