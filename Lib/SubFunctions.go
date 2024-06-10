@@ -97,7 +97,7 @@ func IsPrintable(input string) bool {
 func PrintError() {
 	fmt.Println("Usage: go run . [OPTION] [STRING]")
 	fmt.Println()
-	fmt.Println(`EX: go run . --color=<color> <letters to be colored> "something"`)
+	fmt.Println(`EX: go run . --color=<color> <substring to be colored> "something"`)
 	os.Exit(0)
 }
 
@@ -116,4 +116,14 @@ func trimSpace(s string) string {
 		}
 	}
 	return s
+}
+
+// Returns range of substring to be colored and true if a match is found
+func subToColor(s, sub string) (bool, int, int) {
+	for i := 0; i < len(s); i++ {
+		if s[i:i+len(sub)] == sub {
+			return true, i, i + len(sub) - 1
+		}
+	}
+	return false, 0, 0
 }
