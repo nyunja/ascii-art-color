@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func AsciiArt(color, reset, mainString, subString, fileName string) string {
+func AsciiArt(color, reset, mainString, subString, bannerFile string) string {
 	// Exits program if mainString or subString is empty
 	if mainString == "" || subString == "" {
 		return ""
@@ -31,10 +31,10 @@ func AsciiArt(color, reset, mainString, subString, fileName string) string {
 
 	// Set and check if banner file is valid
 	file := ""
-	if len(fileName) == 0 {
+	if len(bannerFile) == 0 {
 		file = "standard.txt"
 	} else {
-		file = fileName
+		file = bannerFile
 	}
 
 	// Read banner file

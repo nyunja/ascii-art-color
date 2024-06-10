@@ -1,10 +1,11 @@
 package main
 
 import (
-	"colors/Lib"
 	"os"
 	"strings"
 	"testing"
+
+	"colors/Lib"
 )
 
 func TestAsciiArt(t *testing.T) {
@@ -16,21 +17,21 @@ func TestAsciiArt(t *testing.T) {
 	os.Stdout = nil
 
 	// Store output string from Lib.AsciiArt
-	output := Lib.AsciiArt("\033[37m", "\033[0m", "Hello", "Hello", "standard.txt")
+	output := Lib.AsciiArt("\033[33m", "\033[0m", "Hello", "Hello", "standard.txt")
 
 	// Split output into 8 lines
 	lines := strings.Split(output, "\n")
 
 	// Declare expected output
 	expectedline := []string{
-		"\x1b[37m _    _  \x1b[0m\x1b[37m       \x1b[0m\x1b[37m _  \x1b[0m\x1b[37m _  \x1b[0m\x1b[37m        \x1b[0m",
-		"\x1b[37m| |  | | \x1b[0m\x1b[37m       \x1b[0m\x1b[37m| | \x1b[0m\x1b[37m| | \x1b[0m\x1b[37m        \x1b[0m",
-		"\x1b[37m| |__| | \x1b[0m\x1b[37m  ___  \x1b[0m\x1b[37m| | \x1b[0m\x1b[37m| | \x1b[0m\x1b[37m  ___   \x1b[0m",
-		"\x1b[37m|  __  | \x1b[0m\x1b[37m / _ \\ \x1b[0m\x1b[37m| | \x1b[0m\x1b[37m| | \x1b[0m\x1b[37m / _ \\  \x1b[0m",
-		"\x1b[37m| |  | | \x1b[0m\x1b[37m|  __/ \x1b[0m\x1b[37m| | \x1b[0m\x1b[37m| | \x1b[0m\x1b[37m| (_) | \x1b[0m",
-		"\x1b[37m|_|  |_| \x1b[0m\x1b[37m \\___| \x1b[0m\x1b[37m|_| \x1b[0m\x1b[37m|_| \x1b[0m\x1b[37m \\___/  \x1b[0m",
-		"\x1b[37m         \x1b[0m\x1b[37m       \x1b[0m\x1b[37m    \x1b[0m\x1b[37m    \x1b[0m\x1b[37m        \x1b[0m",
-		"\x1b[37m         \x1b[0m\x1b[37m       \x1b[0m\x1b[37m    \x1b[0m\x1b[37m    \x1b[0m\x1b[37m        \x1b[0m",
+		"\x1b[33m _    _  \x1b[0m\x1b[33m       \x1b[0m\x1b[33m _  \x1b[0m\x1b[33m _  \x1b[0m\x1b[33m        \x1b[0m",
+		"\x1b[33m| |  | | \x1b[0m\x1b[33m       \x1b[0m\x1b[33m| | \x1b[0m\x1b[33m| | \x1b[0m\x1b[33m        \x1b[0m",
+		"\x1b[33m| |__| | \x1b[0m\x1b[33m  ___  \x1b[0m\x1b[33m| | \x1b[0m\x1b[33m| | \x1b[0m\x1b[33m  ___   \x1b[0m",
+		"\x1b[33m|  __  | \x1b[0m\x1b[33m / _ \\ \x1b[0m\x1b[33m| | \x1b[0m\x1b[33m| | \x1b[0m\x1b[33m / _ \\  \x1b[0m",
+		"\x1b[33m| |  | | \x1b[0m\x1b[33m|  __/ \x1b[0m\x1b[33m| | \x1b[0m\x1b[33m| | \x1b[0m\x1b[33m| (_) | \x1b[0m",
+		"\x1b[33m|_|  |_| \x1b[0m\x1b[33m \\___| \x1b[0m\x1b[33m|_| \x1b[0m\x1b[33m|_| \x1b[0m\x1b[33m \\___/  \x1b[0m",
+		"\x1b[33m         \x1b[0m\x1b[33m       \x1b[0m\x1b[33m    \x1b[0m\x1b[33m    \x1b[0m\x1b[33m        \x1b[0m",
+		"\x1b[33m         \x1b[0m\x1b[33m       \x1b[0m\x1b[33m    \x1b[0m\x1b[33m    \x1b[0m\x1b[33m        \x1b[0m",
 	}
 
 	// Compare expected and output

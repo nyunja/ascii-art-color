@@ -7,7 +7,10 @@ func CheckInput(input []string) (string, string, string, string, string) {
 	mainString := ""
 	color := ""
 	reset := ""
-	fileName := ""
+	bannerFile := ""
+
+	// Trim spaces from input
+	input = inputTrimSpace(input, trimSpace)
 
 	// Check the number of input arguments
 	if len(input) == 1 {
@@ -41,12 +44,6 @@ func CheckInput(input []string) (string, string, string, string, string) {
 			subString = input[1]
 
 			// if first argument is a valid banner file assign it as file name, add .txt extension
-		} else if input[0] == "-standard" || input[0] == "-shadow" || input[0] == "-thinkertoy" {
-			mainString = input[1]
-			subString = input[1]
-			fileName = input[0][1:] + ".txt"
-
-			// Any other format is invalid; print error message, exit program
 		} else {
 			PrintError()
 		}
@@ -61,24 +58,21 @@ func CheckInput(input []string) (string, string, string, string, string) {
 		if len(input[0]) >= 8 && hasPrefix(input[0], "--color=") {
 			colorFlag = input[0]
 
-			// If second argument is a valid banner file assign it as fileName, add .txt extension
-			if input[1] == "-standard" || input[1] == "-shadow" || input[1] == "-thinkertoy" {
-				mainString = input[2]
-				subString = input[2]
-				fileName = input[1][1:] + ".txt"
+			// If third argument is a valid banner file assign it as fileName, add .txt extension
+			if input[2] == "standard" || input[2] == "shadow" || input[2] == "thinkertoy" {
+				mainString = input[1]
+				subString = input[1]
+				bannerFile = input[2] + ".txt"
+			// Check if user wants to use standard, shadow and thinkertoy as main or sub string 
+			} else if input[2] == "\\standard" || input[2] == "\\shadow" || input[2] == "\\thinkertoy" {
+				mainString = input[2][1:]
+				subString = input[1]
 			} else {
-
 				mainString = input[2]
 				subString = input[1]
 			}
 
 			// If first argument is a valid banner file assign it as file name, add .txt extension
-		} else if input[0] == "-standard" || input[0] == "-shadow" || input[0] == "-thinkertoy" {
-			mainString = input[2]
-			subString = input[1]
-			fileName = input[0][1:] + ".txt"
-
-			// Any other format is invalid; print error message, exit program
 		} else {
 			PrintError()
 		}
@@ -95,10 +89,10 @@ func CheckInput(input []string) (string, string, string, string, string) {
 			colorFlag = input[0]
 
 			// If second argument is a valid banner file assign it as fileName, add .txt extension
-			if input[1] == "-standard" || input[1] == "-shadow" || input[1] == "-thinkertoy" {
-				mainString = input[3]
-				subString = input[2]
-				fileName = input[1][1:] + ".txt"
+			if input[3] == "standard" || input[3] == "shadow" || input[3] == "thinkertoy" {
+				mainString = input[2]
+				subString = input[1]
+				bannerFile = input[3] + ".txt"
 			} else {
 				// Any other format is invalid; print error message, exit program
 				PrintError()
@@ -109,36 +103,20 @@ func CheckInput(input []string) (string, string, string, string, string) {
 		color, reset = colorPicker(colorFlag)
 	}
 
-	return color, reset, mainString, subString, fileName
+	return color, reset, mainString, subString, bannerFile
 }
-
-// matchingStr checks if any character in the string s matches any character in the substring subString.
-// It returns a map indicating which characters match, and a boolean indicating if there was any match.
-// func matchingStr(s string, subString string) (map[string]bool, bool) {
-// 	// Initialize a map to store matches
-// 	match := make(map[string]bool)
-
-// 	// Loop through each character in the string s, and subsequently through subString
-// 	for _, ch := range s {
-// 		for _, ch1 := range subString {
-// 			// If a character in subString matches a character in s, mark it as a match
-// 			if ch1 == ch {
-// 				match[string(ch1)] = true
-// 			}
-// 		}
-// 	}
-
-// 	// If there are matches, return the map of matches and true
-// 	if len(match) > 0 {
-// 		return match, true
-// 	}
-
-// 	// If there are no matches, return nil map and false
-// 	return nil, false
-// }
 
 // Detect whether a string starts with a particular set of characters
 func hasPrefix(s string, prefix string) bool {
 	i := len(prefix)
 	return s[:i] == prefix
+}
+
+// Trim extra spaces from input strings
+func inputTrimSpace(input []string, f func(string)string) []string {
+	var res []string
+	for _, s := range input {
+		res = append(res, f(s))
+	}
+	return res
 }
