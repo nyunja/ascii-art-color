@@ -31,7 +31,8 @@ func HandleCharacters(color string, reset string, subString string, word string,
 	// match, _ := matchingStr(word, subString)
 
 	// Initialize utility variables
-	var start, end, startIndex int
+	var start, end int = -1, -1
+	var startIndex int
 	output := ""
 
 	// Loop through each line of the ASCII art to be printed (8 lines)
