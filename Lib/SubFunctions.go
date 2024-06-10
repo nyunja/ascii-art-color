@@ -60,7 +60,7 @@ func HandleCharacters(start, end int, color, reset, word string, subStrings, sli
 			// 	start = x
 			// 	end = y
 			// }
-			//fmt.Printf("%d %d\n", start, end)
+			// fmt.Printf("%d %d\n", start, end)
 
 			// Calculate the index of the first line of art for each character
 			startIndex = int(ch-32)*9 + 1

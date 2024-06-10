@@ -27,7 +27,6 @@ func AsciiArt(color, reset, mainString, subString, bannerFile string) string {
 	mainString = strings.ReplaceAll(mainString, "\\n", "\n")
 	subString = strings.ReplaceAll(subString, "\\n", "\n")
 
-
 	// Split inputs into printable lines at the '\n' character
 	words := strings.Split(mainString, "\n")
 	subStrings := strings.Split(subString, "\n")

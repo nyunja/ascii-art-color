@@ -65,7 +65,7 @@ func CheckInput(input []string) (string, string, string, string, string) {
 				mainString = input[1]
 				subString = input[1]
 				bannerFile = input[2] + ".txt"
-			// Check if user wants to use standard, shadow and thinkertoy as main or sub string 
+				// Check if user wants to use standard, shadow and thinkertoy as main or sub string
 			} else if input[2] == "\\standard" || input[2] == "\\shadow" || input[2] == "\\thinkertoy" {
 				mainString = input[2][1:]
 				subString = input[1]
@@ -115,7 +115,7 @@ func hasPrefix(s string, prefix string) bool {
 }
 
 // Trim extra spaces from input strings
-func inputTrimSpace(input []string, f func(string)string) []string {
+func inputTrimSpace(input []string, f func(string) string) []string {
 	var res []string
 	for _, s := range input {
 		res = append(res, f(s))
