@@ -38,11 +38,7 @@ func HandleWords(color, reset string, subStrings, slices, words []string) string
 
 // Prints the ASCII ART for each character in each word and updates the output string
 func HandleCharacters(start, end int, color, reset, word string, subStrings, slices []string) string {
-	// Find the matching characters
-	// match, _ := matchingStr(word, subString)
-
 	// Initialize utility variables
-	// var start, end int = -1, -1
 	var startIndex int
 	output := ""
 
@@ -51,31 +47,17 @@ func HandleCharacters(start, end int, color, reset, word string, subStrings, sli
 
 		// Loop through each character in the word
 		for j, ch := range word {
-			// Find range of matching substring
-			// var x, y int
-			// found, x, y := subToColor(word, subStrings, j)
-
-			// // Store the values of start and end when found is true
-			// if found {
-			// 	start = x
-			// 	end = y
-			// }
-			// fmt.Printf("%d %d\n", start, end)
-
 			// Calculate the index of the first line of art for each character
 			startIndex = int(ch-32)*9 + 1
 
-			// If the character matches the substring, add colored ASCII art to the output
+			// If j is within start and stop color the output and reset
 			if j >= start && j <= end {
 				output += color + slices[startIndex+i] + reset
 				fmt.Printf("%s%s%s", color, slices[startIndex+i], reset)
-				// Find range of matching substring
 			} else {
-
 				// If the character doesn't match, add regular ASCII art to the output
 				output += slices[startIndex+i]
 				fmt.Printf("%s", slices[startIndex+i])
-
 			}
 		}
 
