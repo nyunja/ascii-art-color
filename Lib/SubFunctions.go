@@ -22,7 +22,7 @@ func HandleWords(color, reset string, subStrings, slices, words []string) string
 		} else {
 			// Find range of matching substring
 			var x, y int
-			found, x, y := subToColor(word, subStrings)
+			found, x, y := lineToColor(word, subStrings)
 
 			// Store the values of start and end when found is true
 			if found {
@@ -39,6 +39,7 @@ func HandleWords(color, reset string, subStrings, slices, words []string) string
 // Prints the ASCII ART for each character in each word and updates the output string
 func HandleCharacters(start, end int, color, reset, word string, subStrings, slices []string) string {
 	// Initialize utility variables
+	var start2, end2 int = -1, -1
 	var startIndex int
 	output := ""
 
@@ -47,11 +48,20 @@ func HandleCharacters(start, end int, color, reset, word string, subStrings, sli
 
 		// Loop through each character in the word
 		for j, ch := range word {
+			// Find range of matching substring
+			var x, y int
+			found, x, y := subToColor(j, word, subStrings)
+
+			// Store the values of start and end when found is true
+			if found {
+				start2 = x
+				end2 = y
+			}
 			// Calculate the index of the first line of art for each character
 			startIndex = int(ch-32)*9 + 1
 
 			// If j is within start and stop color the output and reset
-			if j >= start && j <= end {
+			if j >= start && j <= end || j >= start2 && j <= end2 {
 				output += color + slices[startIndex+i] + reset
 				fmt.Printf("%s%s%s", color, slices[startIndex+i], reset)
 			} else {
@@ -124,12 +134,23 @@ func trimSpace(s string) string {
 }
 
 // Returns range of substring to be colored and true if a match is found
-func subToColor(s string, subStrings []string) (bool, int, int) {
+func lineToColor(s string, subStrings []string) (bool, int, int) {
 	for _, sub := range subStrings {
 		for i := 0; i < len(s); i++ {
 			if i <= len(s)-len(sub) && s[i:i+len(sub)] == sub {
 				return true, i, i + len(sub) - 1
 			}
+		}
+	}
+
+	return false, 0, 0
+}
+
+// Returns range of substring to be colored and true if a match is found
+func subToColor(j int,s string, subStrings []string) (bool, int, int) {
+	for _, sub := range subStrings {
+		if j <= len(s) - len(sub) && s[j:j+len(sub)] == sub {
+			return true, j, j + len(sub) - 1
 		}
 	}
 

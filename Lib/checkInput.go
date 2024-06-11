@@ -1,7 +1,5 @@
 package Lib
 
-import "fmt"
-
 func CheckInput(input []string) (string, string, string, string, string) {
 	// Initialize utility variables
 	colorFlag := ""
@@ -104,7 +102,6 @@ func CheckInput(input []string) (string, string, string, string, string) {
 		// Extract color and reset codes from colorFlag
 		color, reset = colorPicker(colorFlag)
 	}
-	fmt.Printf("%q %q %q %q %q\n", color, reset, mainString, subString, bannerFile)
 	return color, reset, mainString, subString, bannerFile
 }
 
