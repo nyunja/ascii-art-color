@@ -7,7 +7,8 @@ import (
 )
 
 // Prints new lines and calls HandleCharacters() on each word
-func HandleWords(color string, reset string, subString string, slices []string, words []string) string {
+func HandleWords(color, reset string, subStrings, slices, words []string) string {
+	var start, end int = -1, -1
 	var output string
 	countSpaces := 0
 
@@ -19,19 +20,29 @@ func HandleWords(color string, reset string, subString string, slices []string, 
 				fmt.Println()
 			}
 		} else {
-			output = HandleCharacters(color, reset, subString, word, slices)
+			// Find range of matching substring
+			var x, y int
+			found, x, y := subToColor(word, subStrings)
+
+			// Store the values of start and end when found is true
+			if found {
+				start = x
+				end = y
+			}
+			output = HandleCharacters(start, end, color, reset, word, subStrings, slices)
+			start, end = -1, -1
 		}
 	}
 	return output
 }
 
 // Prints the ASCII ART for each character in each word and updates the output string
-func HandleCharacters(color string, reset string, subString string, word string, slices []string) string {
+func HandleCharacters(start, end int, color, reset, word string, subStrings, slices []string) string {
 	// Find the matching characters
 	// match, _ := matchingStr(word, subString)
 
 	// Initialize utility variables
-	var start, end int = -1, -1
+	// var start, end int = -1, -1
 	var startIndex int
 	output := ""
 
@@ -41,14 +52,15 @@ func HandleCharacters(color string, reset string, subString string, word string,
 		// Loop through each character in the word
 		for j, ch := range word {
 			// Find range of matching substring
-			var x, y int
-			found, x, y := subToColor(word, subString, j)
+			// var x, y int
+			// found, x, y := subToColor(word, subStrings, j)
 
-			// Store the values of start and end when found is true
-			if found {
-				start = x
-				end = y
-			}
+			// // Store the values of start and end when found is true
+			// if found {
+			// 	start = x
+			// 	end = y
+			// }
+			// fmt.Printf("%d %d\n", start, end)
 
 			// Calculate the index of the first line of art for each character
 			startIndex = int(ch-32)*9 + 1
@@ -130,14 +142,18 @@ func trimSpace(s string) string {
 }
 
 // Returns range of substring to be colored and true if a match is found
-func subToColor(s, sub string, j int) (bool, int, int) {
-	if j <= len(s)-len(sub) && s[j:j+len(sub)] == sub {
-		return true, j, j + len(sub) - 1
+func subToColor(s string, subStrings []string) (bool, int, int) {
+	for _, sub := range subStrings {
+		// if j <= len(s)-len(sub) && s[j:j+len(sub)] == sub {
+		// 	fmt.Printf("%d %d\n", j, j + len(sub) - 1)
+		// 	return true, j, j + len(sub) - 1
+		// }
+		for i := 0; i < len(s); i++ {
+			if i <= len(s)-len(sub) && s[i:i+len(sub)] == sub {
+				return true, i, i + len(sub) - 1
+			}
+		}
 	}
-	// for i := j; i < len(s); i++ {
-	// 	if s[i:i+len(sub)] == sub {
-	// 		return true, i, i + len(sub) - 1
-	// 	}
-	// }
+
 	return false, 0, 0
 }

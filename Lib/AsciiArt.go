@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func AsciiArt(color, reset, mainString, subString, fileName string) string {
+func AsciiArt(color, reset, mainString, subString, bannerFile string) string {
 	// Exits program if mainString or subString is empty
 	if mainString == "" || subString == "" {
 		return ""
@@ -25,16 +25,18 @@ func AsciiArt(color, reset, mainString, subString, fileName string) string {
 	}
 	// Make new line characters consistent
 	mainString = strings.ReplaceAll(mainString, "\\n", "\n")
+	subString = strings.ReplaceAll(subString, "\\n", "\n")
 
-	// Split input into printable lines at the '\n' character
+	// Split inputs into printable lines at the '\n' character
 	words := strings.Split(mainString, "\n")
+	subStrings := strings.Split(subString, "\n")
 
 	// Set and check if banner file is valid
 	file := ""
-	if len(fileName) == 0 {
+	if len(bannerFile) == 0 {
 		file = "standard.txt"
 	} else {
-		file = fileName
+		file = bannerFile
 	}
 
 	// Read banner file
@@ -61,5 +63,5 @@ func AsciiArt(color, reset, mainString, subString, fileName string) string {
 	}
 
 	// Print ASCII ART and return output string for testing
-	return HandleWords(color, reset, subString, slices, words)
+	return HandleWords(color, reset, subStrings, slices, words)
 }
