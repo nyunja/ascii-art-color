@@ -85,7 +85,7 @@ func colorPicker(colorFlag string) (string, string) {
 				// Get ANSI color code based on the provided key
 				var match bool
 				for _, item := range colors {
-					if item.Name == key || item.Hex == key || item.HSL == key || item.RGB == key {
+					if item.Name == toLower(key) || item.Hex == key || item.HSL == toLower(key) || item.RGB == toLower(key) {
 						color = item.ANSI
 						match = true
 					}
