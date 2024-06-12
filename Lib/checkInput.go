@@ -105,17 +105,3 @@ func CheckInput(input []string) (string, string, string, string, string) {
 	return color, reset, mainString, subString, bannerFile
 }
 
-// Detect whether a string starts with a particular set of characters
-func hasPrefix(s string, prefix string) bool {
-	i := len(prefix)
-	return s[:i] == prefix
-}
-
-// Trim extra spaces from input strings
-func inputTrimSpace(input []string, f func(string) string) []string {
-	var res []string
-	for _, s := range input {
-		res = append(res, f(s))
-	}
-	return res
-}

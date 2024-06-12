@@ -3,7 +3,6 @@ package Lib
 import (
 	"fmt"
 	"os"
-	"strings"
 )
 
 // Prints new lines and calls HandleCharacters() on each word
@@ -80,79 +79,10 @@ func HandleCharacters(start, end int, color, reset, word string, subStrings, sli
 	return output
 }
 
-// Chaeck if input contains non-printable ascii characters with escape sequences (except '\n')
-func EscapeSequence(input string) bool {
-	allowedEscapes := []string{"\\a", "\\b", "\\t", "\\v", "\\f", "\\r"}
-	for _, unprint := range allowedEscapes {
-		// Detect escape sequence characters in input string
-		if strings.Contains(input, unprint) {
-			return true
-		}
-	}
-	return false
-}
-
-// Check if input contains characters outside of the banner file (except '\n')
-func IsPrintable(input string) bool {
-	var status bool
-
-	// Check if character is represented in banner file
-	for _, v := range input {
-		if (v >= ' ' && v <= '~') || v == '\n' {
-			status = true
-		} else {
-			status = false
-			break
-		}
-	}
-	return status
-}
-
 // Prints the standard error message
 func PrintError() {
 	fmt.Println("Usage: go run . [OPTION] [STRING]")
 	fmt.Println()
 	fmt.Println(`EX: go run . --color=<color> <substring to be colored> "something"`)
 	os.Exit(0)
-}
-
-// Function to trim whitespaces at extreme ends
-func trimSpace(s string) string {
-	if s == "" {
-		return s
-	}
-	for i := 0; i < len(s); i++ {
-		if i == 0 && s[i] == ' ' {
-			s = s[1:]
-			s = trimSpace(s)
-		} else if i == len(s)-1 && s[i] == ' ' {
-			s = s[:len(s)-1]
-			s = trimSpace(s)
-		}
-	}
-	return s
-}
-
-// Returns range of substring to be colored and true if a match is found
-func lineToColor(s string, subStrings []string) (bool, int, int) {
-	for _, sub := range subStrings {
-		for i := 0; i < len(s); i++ {
-			if i <= len(s)-len(sub) && s[i:i+len(sub)] == sub {
-				return true, i, i + len(sub) - 1
-			}
-		}
-	}
-
-	return false, 0, 0
-}
-
-// Returns range of substring to be colored and true if a match is found
-func subToColor(j int,s string, subStrings []string) (bool, int, int) {
-	for _, sub := range subStrings {
-		if j <= len(s) - len(sub) && s[j:j+len(sub)] == sub {
-			return true, j, j + len(sub) - 1
-		}
-	}
-
-	return false, 0, 0
 }
