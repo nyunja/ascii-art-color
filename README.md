@@ -9,28 +9,28 @@ The program accepts various combinations of arguments to customize the output. H
 **Format 1: With color, banner file, letters to be colored, and string**
 
 ```
-go run . --color=<color> -<banner-file> <letters-to-be-colored> <string>
+go run . --color=<color> <substring-to-be-colored> <string> <banner>
 ```
 Example:
 ```
-go run . --color=red -standard "H" "Hello"
+go run . --color=red "H" "Hello" standard
 ```
 **Format 2: With color, letters to be colored, and string**
 ```
-go run . --color=<color> <letters-to-be-colored> <string>
+go run . --color=<color> <substring-to-be-colored> <string>
 ```
 Example:
 ```
-go run . --color=blue "Hello"
+go run . --color=blue el "Hello"
 ```
 
-**Format 3: With banner style, letters to be colored, and string**
+**Format 3: With color, string and banner style**
 ```
-go run . -<banner-file> <letters-to-be-colored> <string>
+go run . --color=<color> <string> <banner-file> 
 ```
 Example:
 ```
-go run . -shadow "ello" "Hello"
+go run . --color=yellow Hello shadow
 ```
 **Format 4: With color and string**
 ```
@@ -41,17 +41,7 @@ Example:
 go run . --color=green "Hello"
 ```
 
-**Format 5: With banner style and string**
-```
-go run . -<banner-file> <string>
-```
-
-Example:
-```
-go run . -thinkertoy "Hello"
-```
-
-**Format 6: String only**
+**Format 5: String only**
 ```
 go run . <string>
 ```
@@ -68,7 +58,7 @@ If the program is not provided with the correct number and format of arguments, 
 ```
 Usage: go run . [OPTION] [STRING]
 
-EX: go run . --color=<color> <letters to be colored> "something"
+EX: go run . --color=<color> <substring-to-be-colored> "something"
 ```
 Example:
 ```
@@ -83,24 +73,22 @@ go run . --color=red Hello
 ```
 To print "Hello" in blue with a shadow banner:
 ```
-go run . --color=blue -shadow "Hello"
+go run . --color=blue "Hello" shadow
 ```
 
 To print "Hello" in default color with a Thinkertoy banner:
-```
-go run . -thinkertoy "Hello"
-```
-To print "Hello" in default color with the defalt -standard banner:
 ```
 go run . "Hello"
 ```
 
 ## Notes
 
-- The `<letters-to-be-colored>` argument should be enclosed in double quotes or single quotes if they contain special characters.
-- The `<letters-to-be-colored>` and `"something"` arguments are case-sensitive and will only respect matching cases.
+- The `<substring-to-be-colored>` argument should be enclosed in double quotes or single quotes if they contain special characters.
+- The `<substring-to-be-colored>` and `"something"` arguments are case-sensitive and will only respect matching cases.
 - Available colors include: red, green, blue, and others supported by your terminal.
 - Available banner styles include: standard, shadow, and thinkertoy.
+- Use `\\standard`, `\\shadow` and `\\thinkertoy` when you want to to use the banner file names as the substring to be colored or the main string.
+
 ## Authors
 **John Otieno,**
 
