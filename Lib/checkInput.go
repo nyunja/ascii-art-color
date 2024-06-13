@@ -104,4 +104,3 @@ func CheckInput(input []string) (string, string, string, string, string) {
 	}
 	return color, reset, mainString, subString, bannerFile
 }
-
