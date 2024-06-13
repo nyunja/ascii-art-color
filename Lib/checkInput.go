@@ -21,7 +21,7 @@ func CheckInput(input []string) (string, string, string, string, string) {
 		}
 
 		if len(input[0]) >= 8 && hasPrefix(input[0], "--color=") {
-			colorFlag = input[0]
+			PrintError()
 
 			// if argument is has no color flag it is used as main string
 		} else {
