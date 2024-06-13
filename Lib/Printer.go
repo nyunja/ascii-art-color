@@ -29,6 +29,7 @@ func HandleWords(color, reset string, subStrings, slices, words []string) string
 // Prints the ASCII ART for each character in each word and updates the output string
 func HandleCharacters(start, end int, color, reset, word string, subStrings, slices []string) string {
 	// Initialize utility variables
+
 	var startIndex int
 	output := ""
 
