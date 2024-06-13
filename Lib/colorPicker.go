@@ -7,7 +7,7 @@ func colorPicker(colorFlag string) (string, string) {
 	color := ""
 	reset := "\033[0m"
 
-	// Define ANSI color codes
+	// Define hex, RGB, hsl, and ANSI color codes
 	colors := []struct {
 		Name string
 		Hex  string
