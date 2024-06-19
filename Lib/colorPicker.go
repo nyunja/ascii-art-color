@@ -64,7 +64,7 @@ func colorPicker(colorFlag string) (string, string) {
 	}
 
 	// Handle cases where colorFlag is provided with valid format
-	if len(colorFlag) != 0 {
+	if len(colorFlag) > 0 {
 		if hasPrefix(colorFlag, "--color=") {
 
 			key := trimSpace(colorFlag[8:])
