@@ -22,3 +22,8 @@ func hasPrefix(s string, prefix string) bool {
 	i := len(prefix)
 	return s[:i] == prefix
 }
+
+// Helper function to check if an input has a valid color flag
+func isColorFlag(s string) bool {
+	return len(s) >= 8 && hasPrefix(s, "--color=")
+}

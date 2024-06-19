@@ -20,7 +20,7 @@ func CheckInput(input []string) (string, string, string, string, string) {
 			PrintError()
 		}
 
-		if len(input[0]) >= 8 && hasPrefix(input[0], "--color=") {
+		if isColorFlag(input[0]) {
 			PrintError()
 
 			// if argument is has no color flag it is used as main string
@@ -29,7 +29,7 @@ func CheckInput(input []string) (string, string, string, string, string) {
 			subString = input[0]
 		}
 
-		color, reset = colorPicker(colorFlag)
+		//color, reset = colorPicker(colorFlag)
 
 	} else if len(input) == 2 {
 		// Exit program if any of the two input strings are empty
@@ -38,8 +38,8 @@ func CheckInput(input []string) (string, string, string, string, string) {
 		}
 
 		// If first argument is a valid color flag, assign it to colorFlag
-		if len(input[0]) >= 8 && hasPrefix(input[0], "--color=") {
-			colorFlag = input[0]
+		if isColorFlag(input[0]) {
+			colorFlag = input[0][8:]
 			mainString = input[1]
 			subString = input[1]
 
@@ -47,7 +47,7 @@ func CheckInput(input []string) (string, string, string, string, string) {
 		} else {
 			PrintError()
 		}
-		color, reset = colorPicker(colorFlag)
+		//color, reset = colorPicker(colorFlag)
 	} else if len(input) == 3 {
 		// Exit program if any of the three arguments are empty
 		if len(input[2]) == 0 || len(input[1]) == 0 || len(input[0]) == 0 {
@@ -55,8 +55,8 @@ func CheckInput(input []string) (string, string, string, string, string) {
 		}
 
 		// If first argument is a valid color flag, assign it to colorFlag
-		if len(input[0]) >= 8 && hasPrefix(input[0], "--color=") {
-			colorFlag = input[0]
+		if isColorFlag(input[0]) {
+			colorFlag = input[0][8:]
 
 			// If third argument is a valid banner file assign it as fileName, add .txt extension
 			if input[2] == "standard" || input[2] == "shadow" || input[2] == "thinkertoy" {
@@ -76,7 +76,7 @@ func CheckInput(input []string) (string, string, string, string, string) {
 		} else {
 			PrintError()
 		}
-		color, reset = colorPicker(colorFlag)
+		//color, reset = colorPicker(colorFlag)
 
 	} else if len(input) == 4 {
 		// Exit program if any of the three arguments are empty
@@ -85,8 +85,8 @@ func CheckInput(input []string) (string, string, string, string, string) {
 		}
 
 		// If first argument is a valid color flag, assign it to colorFlag
-		if len(input[0]) >= 8 && hasPrefix(input[0], "--color=") {
-			colorFlag = input[0]
+		if isColorFlag(input[0]) {
+			colorFlag = input[0][8:]
 
 			// If second argument is a valid banner file assign it as fileName, add .txt extension
 			if input[3] == "standard" || input[3] == "shadow" || input[3] == "thinkertoy" {
@@ -99,8 +99,10 @@ func CheckInput(input []string) (string, string, string, string, string) {
 			}
 		}
 
-		// Extract color and reset codes from colorFlag
-		color, reset = colorPicker(colorFlag)
+		
 	}
+	// Extract color and reset codes from colorFlag
+	color, reset = colorPicker(colorFlag)
+
 	return color, reset, mainString, subString, bannerFile
 }

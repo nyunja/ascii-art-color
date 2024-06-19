@@ -4,7 +4,8 @@ package Lib
 // It returns the ANSI color code and reset code as strings.
 func colorPicker(colorFlag string) (string, string) {
 	// Initialize utility variables
-	color := ""
+	// Set default color if colorFlag
+	color := "\033[37m"
 	reset := "\033[0m"
 
 	// Define hex, RGB, hsl, and ANSI color codes
@@ -63,37 +64,20 @@ func colorPicker(colorFlag string) (string, string) {
 		{"ash", "#B2BEB5", "rgb(178, 190, 181)", "hsl(140, 12%, 72%)", "\033[90m"},
 	}
 
-	// Set default color if colorFlag is empty
-	if colorFlag == "" {
-		color = "\033[37m"
-	}
-
 	// Check if colorFlag is provided and has a valid format
-	if colorFlag != "" && len(colorFlag) < 8 {
-		PrintError()
-	}
-
 	// Handle cases where colorFlag is provided with valid format
-	if len(colorFlag) > 8 {
-		if hasPrefix(colorFlag, "--color=") {
-
-			key := trimSpace(colorFlag[8:])
-			if key == "" {
-				color = "\033[37m"
-			} else {
-
-				// Get ANSI color code based on the provided key
-				var match bool
-				for _, item := range colors {
-					if item.Name == toLower(key) || item.Hex == key || item.HSL == toLower(key) || item.RGB == toLower(key) {
-						color = item.ANSI
-						match = true
-					}
-				}
-				if !match {
-					PrintError()
-				}
+	if colorFlag != "" {
+		key := trimSpace(colorFlag)
+		// Get ANSI color code based on the provided key
+		var match bool
+		for _, item := range colors {
+			if item.Name == toLower(key) || item.Hex == key || item.HSL == toLower(key) || item.RGB == toLower(key) {
+				color = item.ANSI
+				match = true
 			}
+		}
+		if !match {
+			PrintError()
 		}
 	}
 
