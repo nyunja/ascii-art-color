@@ -16,10 +16,11 @@ func HandleWords(color, reset string, subStrings, slices, words []string) string
 		if word == "" {
 			countSpaces++
 			if countSpaces < len(words) {
+				output += "\n"
 				fmt.Println()
 			}
 		} else {
-			output = HandleCharacters(start, end, color, reset, word, subStrings, slices)
+			output += HandleCharacters(start, end, color, reset, word, subStrings, slices)
 			start, end = -1, -1
 		}
 	}
