@@ -63,23 +63,13 @@ func colorPicker(colorFlag string) (string, string) {
 		{"ash", "#B2BEB5", "rgb(178, 190, 181)", "hsl(140, 12%, 72%)", "\033[90m"},
 	}
 
-	// Set default color if colorFlag is empty
-	if colorFlag == "" {
-		color = "\033[37m"
-	}
-
-	// Check if colorFlag is provided and has a valid format
-	if colorFlag != "" && len(colorFlag) < 8 {
-		PrintError()
-	}
-
 	// Handle cases where colorFlag is provided with valid format
-	if len(colorFlag) > 8 {
+	if len(colorFlag) != 0 {
 		if hasPrefix(colorFlag, "--color=") {
 
 			key := trimSpace(colorFlag[8:])
 			if key == "" {
-				color = "\033[37m"
+				PrintError()
 			} else {
 
 				// Get ANSI color code based on the provided key

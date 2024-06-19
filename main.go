@@ -1,9 +1,7 @@
 package main
 
 import (
-	"fmt"
 	"os"
-	"strings"
 
 	"colors/Lib"
 )
@@ -23,12 +21,7 @@ func main() {
 
 	// // Check what user input contains and returns required variables
 	color, reset, mainString, subString, fileName := Lib.CheckInput(input)
-	// fmt.Printf("main : %s sun : %s  color : %s reset : %s", mainString, subString, color, reset)
 
 	// Call the AsciiArt function to handle input
-	lines := Lib.AsciiArt(color, reset, mainString, subString, fileName)
-
-	for _, line := range strings.Split(lines, "\n") {
-		fmt.Printf("%q\n", line)
-	}
+	Lib.AsciiArt(color, reset, mainString, subString, fileName)
 }

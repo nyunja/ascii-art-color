@@ -51,7 +51,7 @@ func HandleCharacters(start, end int, color, reset, word string, subStrings, sli
 			startIndex = int(ch-32)*9 + 1
 
 			// If j is within start and stop color the output and reset
-			if j >= start && j <= end {
+			if len(color) > 0 && j >= start && j <= end {
 				output += color + slices[startIndex+i] + reset
 				fmt.Printf("%s%s%s", color, slices[startIndex+i], reset)
 			} else {
