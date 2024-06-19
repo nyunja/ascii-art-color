@@ -93,7 +93,8 @@ go run . "Hello"
 ## Color Library
 Feel free to choose from the following color library and formats
 
-```     Color Name       Hex                 RGB                      HSL
+```     
+        Color Name       Hex                 RGB                      HSL
 
 		{"red",         "#FF0000",          "rgb(255, 0, 0)",        "hsl(0, 100%, 50%)"},
 		{"green",       "#00FF00",          "rgb(0, 255, 0)",        "hsl(120, 100%, 50%)"},
