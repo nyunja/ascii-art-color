@@ -5,7 +5,7 @@ package Lib
 func colorPicker(colorFlag string) (string, string) {
 	// Initialize utility variables
 	// Set default color if colorFlag
-	color := "\033[37m"
+	color := ""
 	reset := "\033[0m"
 
 	// Define hex, RGB, hsl, and ANSI color codes
@@ -22,7 +22,7 @@ func colorPicker(colorFlag string) (string, string) {
 		{"orange", "#FFA500", "rgb(255, 165, 0)", "hsl(39, 100%, 50%)", "\033[38;5;208m"},
 		{"yellow", "#FFFF00", "rgb(255, 255, 0)", "hsl(60, 100%, 50%)", "\033[33m"},
 		{"black", "#000000", "rgb(0, 0, 0)", "hsl(0, 0%, 0%)", "\033[30m"},
-		{"white", "#FFFFFF", "rgb(255, 255, 255)", "hsl(0, 0%, 100%)", "\033[37m"},
+		{"white", "#FFFFFF", "rgb(255, 255, 255)", "hsl(0, 0%, 100%)", ""},
 		{"gray", "#808080", "rgb(128, 128, 128)", "hsl(0, 0%, 50%)", "\033[90m"},
 		{"pink", "#FF00FF", "rgb(255, 0, 255)", "hsl(300, 100%, 50%)", "\033[95m"},
 		{"teal", "#008080", "rgb(0, 128, 128)", "hsl(180, 100%, 25%)", "\033[36m"},
@@ -64,19 +64,27 @@ func colorPicker(colorFlag string) (string, string) {
 		{"ash", "#B2BEB5", "rgb(178, 190, 181)", "hsl(140, 12%, 72%)", "\033[90m"},
 	}
 
-	// Check if colorFlag is provided and has a valid format
 	// Handle cases where colorFlag is provided with valid format
-	if colorFlag != "" {
-		key := trimSpace(colorFlag)
-		// Get ANSI color code based on the provided key
-		var match bool
-		for _, item := range colors {
-			if item.Name == toLower(key) || item.Hex == key || item.HSL == toLower(key) || item.RGB == toLower(key) {
-				color = item.ANSI
-				match = true
+	if len(colorFlag) > 0 {
+		if hasPrefix(colorFlag, "--color=") {
+			key := trimSpace(colorFlag[8:])
+			if key == "" {
+				PrintError()
+			} else {
+
+				// Get ANSI color code based on the provided key
+				var match bool
+				for _, item := range colors {
+					if item.Name == toLower(key) || item.Hex == key || item.HSL == toLower(key) || item.RGB == toLower(key) {
+						color = item.ANSI
+						match = true
+					}
+				}
+				if !match {
+					PrintError()
+				}
 			}
-		}
-		if !match {
+		} else {
 			PrintError()
 		}
 	}
