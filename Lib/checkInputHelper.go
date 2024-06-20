@@ -6,12 +6,14 @@ func trimSpace(s string) string {
 		return s
 	}
 	for i := 0; i < len(s); i++ {
-		if i == 0 && s[i] == ' ' {
-			s = s[1:]
-			s = trimSpace(s)
-		} else if i == len(s)-1 && s[i] == ' ' {
-			s = s[:len(s)-1]
-			s = trimSpace(s)
+		if len(s) > 1 {
+			if i == 0 && s[i] == ' ' && s[i+1] != ' ' {
+				s = s[1:]
+				s = trimSpace(s)
+			} else if i == len(s)-1 && s[i] == ' ' && s[i-1] != ' ' {
+				s = s[:len(s)-1]
+				s = trimSpace(s)
+			}
 		}
 	}
 	return s
