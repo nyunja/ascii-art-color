@@ -26,7 +26,6 @@ func hasPrefix(s string, prefix string) bool {
 }
 
 // Check if the color flag is valid
-func isColoFlag(s string) bool {
-	return len(s) > 8 && hasPrefix(s, "--color=")
+func isColorFlag(s string) bool {
+	return hasPrefix(s, "--")
 }
-
