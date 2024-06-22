@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"colors/Lib"
@@ -11,7 +12,7 @@ func main() {
 	input := os.Args[1:]
 
 	// Exits the program if the arguments passed are greater than 5
-	if len(input) > 4 {
+	if len(input) > 5 {
 		Lib.PrintError()
 	}
 	// Exits the program if the arguments passed are less than 1
@@ -20,8 +21,14 @@ func main() {
 	}
 
 	// // Check what user input contains and returns required variables
-	color, reset, mainString, subString, fileName := Lib.CheckInput(input)
+	color, reset, mainString, subString, fileName, outputFile := Lib.CheckInput(input)
 
 	// Call the AsciiArt function to handle input
-	Lib.AsciiArt(color, reset, mainString, subString, fileName)
+	output := Lib.AsciiArt(color, reset, mainString, subString, fileName)
+
+	if len(outputFile) > 0 {
+		os.WriteFile(outputFile, []byte(output), 0666)
+	} else {
+		fmt.Println(output)
+	}
 }

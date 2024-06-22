@@ -25,9 +25,20 @@ func hasPrefix(s string, prefix string) bool {
 	return len(s) >= i && s[:i] == prefix
 }
 
+// Detect whether a string starts with a particular set of characters
+func hasSuffix(s string, suffix string) bool {
+	i := len(s) - len(suffix)
+	return i >= 0 && s[i:] == suffix
+}
+
 // Check if the color flag is valid
 func isColorFlag(s string) bool {
 	return len(s) > 8 && hasPrefix(s, "--color=")
+}
+
+// Check if the output flag is valid
+func isOutputFlag(s string) bool {
+	return len(s) > 9 && hasPrefix(s, "--output=") && hasSuffix(s, ".txt")
 }
 
 func isFlag(s string) bool {

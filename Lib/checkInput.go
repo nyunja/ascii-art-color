@@ -1,11 +1,13 @@
 package Lib
 
+import "fmt"
+
 type flagz struct {
 	s string
 	t string
 }
 
-func CheckInput(input []string) (string, string, string, string, string) {
+func CheckInput(input []string) (string, string, string, string, string, string) {
 	// Initialize utility variables
 	colorFlag := ""
 	subString := ""
@@ -13,9 +15,11 @@ func CheckInput(input []string) (string, string, string, string, string) {
 	color := ""
 	reset := ""
 	bannerFile := ""
+	outputFile := ""
 
 	// Trim spaces from input
 	input = inputTrimSpace(input, trimSpace)
+	fmt.Println(input)
 
 	flg := []flagz{}
 
@@ -26,27 +30,13 @@ func CheckInput(input []string) (string, string, string, string, string) {
 			flg = append(flg, flagz{str, "s"})
 		}
 	}
-
-	for i, item := range flg {
-		if item.t == "f" {
-			if isColorFlag(item.s) {
-				colorFlag = item.s
-				flg = append(flg[:i], flg[i+1:]...)
-			} else {
-				PrintError()
-			}
-		} else if i == len(flg)-1 && item.t == "s" {
-			if isBanner(item.s) {
-				bannerFile = item.s + ".txt"
-				flg = flg[:i]
-			}
-		}
-	}
+	// fmt.Println(flg)
+	colorFlag, outputFile, bannerFile, flg = sortInput(colorFlag, outputFile, bannerFile, flg)
 
 	if len(flg) < 1 || len(flg) > 2 {
 		PrintError()
 	}
-	
+
 	if len(flg) == 2 {
 		if flg[1].s == "\\standard" || flg[1].s == "\\shadow" || flg[1].s == "\\thinkertoy" {
 			flg[1].s = flg[1].s[1:]
@@ -122,5 +112,29 @@ func CheckInput(input []string) (string, string, string, string, string) {
 	// Extract color and reset codes from colorFlag
 	color, reset = colorPicker(colorFlag)
 
-	return color, reset, mainString, subString, bannerFile
+	return color, reset, mainString, subString, bannerFile, outputFile
+}
+
+func sortInput(colorFlag string, outputFile string, bannerFile string, flg []flagz) (string, string, string, []flagz) {
+	for i, item := range flg {
+		if item.t == "f" {
+			if i < len(flg)-1 && isColorFlag(item.s) {
+				colorFlag = item.s
+				flg = append(flg[:i], flg[i+1:]...)
+				colorFlag, outputFile, bannerFile, flg = sortInput(colorFlag, outputFile, bannerFile, flg)
+			} else if i < len(flg)-1 && isOutputFlag(item.s) {
+				outputFile = item.s[9:]
+				flg = append(flg[:i], flg[i+1:]...)
+				colorFlag, outputFile, bannerFile, flg = sortInput(colorFlag, outputFile, bannerFile, flg )
+			} else {
+				PrintError()
+			}
+		} else if i == len(flg)-1 && item.t == "s" {
+			if isBanner(item.s) {
+				bannerFile = item.s + ".txt"
+				flg = flg[:i]
+			}
+		}
+	}
+	return colorFlag, outputFile, bannerFile, flg
 }
