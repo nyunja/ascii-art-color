@@ -35,15 +35,15 @@ func isFlag(s string) bool {
 }
 
 // Check if flag format is valid
-func hasValidFlag(arr []string) {
-	for _, s := range arr {
-		if isFlag(s) {
-			if !isColorFlag(s) {
-				PrintError()
-			}
-		}
-	}
-}
+// func hasValidFlag(arr []string) {
+// 	for _, s := range arr {
+// 		if isFlag(s) {
+// 			if !isColorFlag(s) {
+// 				PrintError()
+// 			}
+// 		}
+// 	}
+// }
 
 // Check if flag format is valid
 // func markFlag(arr []string) string {
