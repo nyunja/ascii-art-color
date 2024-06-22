@@ -1,11 +1,9 @@
 package Lib
 
-import "fmt"
-
-type flagz struct {
-	s string
-	t string
-}
+// type flagz struct {
+// 	s string
+// 	t string
+// }
 
 func CheckInput(input []string) (string, string, string, string, string, string) {
 	// Initialize utility variables
@@ -19,34 +17,46 @@ func CheckInput(input []string) (string, string, string, string, string, string)
 
 	// Trim spaces from input
 	input = inputTrimSpace(input, trimSpace)
-	fmt.Println(input)
+	// fmt.Println(input)
 
-	flg := []flagz{}
+	// flg := []flagz{}
+	flg := input
 
-	for _, str := range input {
-		if isFlag(str) {
-			flg = append(flg, flagz{str, "f"})
-		} else {
-			flg = append(flg, flagz{str, "s"})
-		}
-	}
+	// for _, str := range input {
+	// 	if isFlag(str) {
+	// 		flg = append(flg, flagz{str, "f"})
+	// 	} else {
+	// 		flg = append(flg, flagz{str, "s"})
+	// 	}
+	// }
 	// fmt.Println(flg)
-	colorFlag, outputFile, bannerFile, flg = sortInput(colorFlag, outputFile, bannerFile, flg)
+	// colorFlag, outputFile, bannerFile, flg = sortInput(colorFlag, outputFile, bannerFile, flg)
+	colorFlag, outputFile, bannerFile, flg = sortInput2(colorFlag, outputFile, bannerFile, flg)
 
 	if len(flg) < 1 || len(flg) > 2 {
 		PrintError()
 	}
-
 	if len(flg) == 2 {
-		if flg[1].s == "\\standard" || flg[1].s == "\\shadow" || flg[1].s == "\\thinkertoy" {
-			flg[1].s = flg[1].s[1:]
+		if flg[1] == "\\standard" || flg[1] == "\\shadow" || flg[1] == "\\thinkertoy" {
+			flg[1] = flg[1][1:]
 		}
-		mainString = flg[1].s
-		subString = flg[0].s
+		mainString = flg[1]
+		subString = flg[0]
 	} else if len(flg) == 1 {
-		mainString = flg[0].s
-		subString = flg[0].s
+		mainString = flg[0]
+		subString = flg[0]
 	}
+
+	// if len(flg) == 2 {
+	// 	if flg[1].s == "\\standard" || flg[1].s == "\\shadow" || flg[1].s == "\\thinkertoy" {
+	// 		flg[1].s = flg[1].s[1:]
+	// 	}
+	// 	mainString = flg[1].s
+	// 	subString = flg[0].s
+	// } else if len(flg) == 1 {
+	// 	mainString = flg[0].s
+	// 	subString = flg[0].s
+	// }
 
 	// // Check if flags are valid
 	// hasValidFlag(input)
@@ -115,25 +125,47 @@ func CheckInput(input []string) (string, string, string, string, string, string)
 	return color, reset, mainString, subString, bannerFile, outputFile
 }
 
-func sortInput(colorFlag string, outputFile string, bannerFile string, flg []flagz) (string, string, string, []flagz) {
+// func sortInput(colorFlag string, outputFile string, bannerFile string, flg []flagz) (string, string, string, []flagz) {
+// 	for i, item := range flg {
+// 		if item.t == "f" {
+// 			if i < len(flg)-1 && isColorFlag(item.s) {
+// 				colorFlag = item.s
+// 				flg = append(flg[:i], flg[i+1:]...)
+// 				colorFlag, outputFile, bannerFile, flg = sortInput(colorFlag, outputFile, bannerFile, flg)
+// 			} else if i < len(flg)-1 && isOutputFlag(item.s) {
+// 				outputFile = item.s[9:]
+// 				flg = append(flg[:i], flg[i+1:]...)
+// 				colorFlag, outputFile, bannerFile, flg = sortInput(colorFlag, outputFile, bannerFile, flg)
+// 			} else {
+// 				PrintError()
+// 			}
+// 		} else if i == len(flg)-1 && item.t == "s" {
+// 			if isBanner(item.s) {
+// 				bannerFile = item.s + ".txt"
+// 				flg = flg[:i]
+// 			}
+// 		}
+// 	}
+// 	return colorFlag, outputFile, bannerFile, flg
+// }
+
+func sortInput2(colorFlag string, outputFile string, bannerFile string, flg []string) (string, string, string, []string) {
 	for i, item := range flg {
-		if item.t == "f" {
-			if i < len(flg)-1 && isColorFlag(item.s) {
-				colorFlag = item.s
+		if isFlag(item) {
+			if i < len(flg)-1 && isColorFlag(item) {
+				colorFlag = item
 				flg = append(flg[:i], flg[i+1:]...)
-				colorFlag, outputFile, bannerFile, flg = sortInput(colorFlag, outputFile, bannerFile, flg)
-			} else if i < len(flg)-1 && isOutputFlag(item.s) {
-				outputFile = item.s[9:]
+				colorFlag, outputFile, bannerFile, flg = sortInput2(colorFlag, outputFile, bannerFile, flg)
+			} else if i < len(flg)-1 && isOutputFlag(item) {
+				outputFile = item[9:]
 				flg = append(flg[:i], flg[i+1:]...)
-				colorFlag, outputFile, bannerFile, flg = sortInput(colorFlag, outputFile, bannerFile, flg )
+				colorFlag, outputFile, bannerFile, flg = sortInput2(colorFlag, outputFile, bannerFile, flg)
 			} else {
 				PrintError()
 			}
-		} else if i == len(flg)-1 && item.t == "s" {
-			if isBanner(item.s) {
-				bannerFile = item.s + ".txt"
-				flg = flg[:i]
-			}
+		} else if i == len(flg)-1 && isBanner(item) {
+			bannerFile = item + ".txt"
+			flg = flg[:i]
 		}
 	}
 	return colorFlag, outputFile, bannerFile, flg

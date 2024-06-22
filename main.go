@@ -29,6 +29,6 @@ func main() {
 	if len(outputFile) > 0 {
 		os.WriteFile(outputFile, []byte(output), 0666)
 	} else {
-		fmt.Println(output)
+		fmt.Print(output)
 	}
 }
