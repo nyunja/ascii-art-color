@@ -22,10 +22,28 @@ func trimSpace(s string) string {
 // Detect whether a string starts with a particular set of characters
 func hasPrefix(s string, prefix string) bool {
 	i := len(prefix)
-	return s[:i] == prefix
+	return len(s) >= i && s[:i] == prefix
 }
 
 // Check if the color flag is valid
 func isColorFlag(s string) bool {
-	return hasPrefix(s, "--")
+	return len(s) > 8 && hasPrefix(s, "--color=")
+}
+
+// Check if flag format is valid
+func hasValidFlag(arr []string) {
+	for _, s := range arr {
+		if hasPrefix(s, "-") || hasPrefix(s, "--") {
+			if !isColorFlag(s) {
+				PrintError()
+			}
+		}
+	}
+}
+
+func isBanner(s string) bool {
+	if s == "standard" || s == "shadow" || s == "thinkertoy" {
+		return true
+	}
+	return false
 }
