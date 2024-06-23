@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func AsciiArt(color, reset, mainString, subString, bannerFile string) string {
+func AsciiArt(color1, color2, reset, mainString, subString, bannerFile string) string {
 	// Exits program if mainString or subString is empty
 	if mainString == "" || subString == "" {
 		return ""
@@ -63,5 +63,5 @@ func AsciiArt(color, reset, mainString, subString, bannerFile string) string {
 	}
 
 	// Print ASCII ART and return output string for testing
-	return HandleWords(color, reset, subStrings, slices, words)
+	return HandleWords(color1, color2, reset, subStrings, slices, words)
 }

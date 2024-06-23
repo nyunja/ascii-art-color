@@ -1,11 +1,14 @@
 package Lib
 
+import "strings"
+
 // colorPicker picks the ANSI color code and reset code based on the provided colorFlag.
 // It returns the ANSI color code and reset code as strings.
-func colorPicker(colorFlag string) (string, string) {
+func colorPicker(colorFlag string) (string, string, string) {
 	// Initialize utility variables
-	// Set default color if colorFlag
-	color := ""
+	// Set default color1 if colorFlag
+	color1 := ""
+	color2 := ""
 	reset := "\033[0m"
 
 	// Define hex, RGB, hsl, and ANSI color codes
@@ -71,12 +74,16 @@ func colorPicker(colorFlag string) (string, string) {
 			if key == "" {
 				PrintError()
 			} else {
-
+				colorInput := strings.Split(key, "|")
 				// Get ANSI color code based on the provided key
 				var match bool
 				for _, item := range colors {
-					if item.Name == toLower(key) || item.Hex == key || item.HSL == toLower(key) || item.RGB == toLower(key) {
-						color = item.ANSI
+					if item.Name == toLower(colorInput[0]) || item.Hex == colorInput[0] || item.HSL == toLower(colorInput[0]) || item.RGB == toLower(colorInput[0]) {
+						color1 = item.ANSI
+						match = true
+					}
+					if len(colorInput) > 1 && (item.Name == toLower(colorInput[1]) || item.Hex == colorInput[1] || item.HSL == toLower(colorInput[1]) || item.RGB == toLower(colorInput[1])) {
+						color2 = item.ANSI
 						match = true
 					}
 				}
@@ -90,5 +97,5 @@ func colorPicker(colorFlag string) (string, string) {
 	}
 
 	// Return the ANSI color code and reset code
-	return color, reset
+	return color1, color2, reset
 }

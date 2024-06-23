@@ -5,22 +5,23 @@ package Lib
 // 	t string
 // }
 
-func CheckInput(input []string) (string, string, string, string, string, string) {
+func CheckInput(inputs []string) (string, string, string, string, string, string, string) {
 	// Initialize utility variables
 	colorFlag := ""
 	subString := ""
 	mainString := ""
-	color := ""
+	color1 := ""
+	color2 := ""
 	reset := ""
 	bannerFile := ""
 	outputFile := ""
 
 	// Trim spaces from input
-	input = inputTrimSpace(input, trimSpace)
+	inputs = inputTrimSpace(inputs, trimSpace)
 	// fmt.Println(input)
 
-	// flg := []flagz{}
-	flg := input
+	// inputs := []flagz{}
+	// inputs := input
 
 	// for _, str := range input {
 	// 	if isFlag(str) {
@@ -31,20 +32,20 @@ func CheckInput(input []string) (string, string, string, string, string, string)
 	// }
 	// fmt.Println(flg)
 	// colorFlag, outputFile, bannerFile, flg = sortInput(colorFlag, outputFile, bannerFile, flg)
-	colorFlag, outputFile, bannerFile, flg = sortInput2(colorFlag, outputFile, bannerFile, flg)
+	colorFlag, outputFile, bannerFile, inputs = sortInput2(colorFlag, outputFile, bannerFile, inputs)
 
-	if len(flg) < 1 || len(flg) > 2 {
+	if len(inputs) < 1 || len(inputs) > 2 {
 		PrintError()
 	}
-	if len(flg) == 2 {
-		if flg[1] == "\\standard" || flg[1] == "\\shadow" || flg[1] == "\\thinkertoy" {
-			flg[1] = flg[1][1:]
+	if len(inputs) == 2 {
+		if inputs[1] == "\\standard" || inputs[1] == "\\shadow" || inputs[1] == "\\thinkertoy" {
+			inputs[1] = inputs[1][1:]
 		}
-		mainString = flg[1]
-		subString = flg[0]
-	} else if len(flg) == 1 {
-		mainString = flg[0]
-		subString = flg[0]
+		mainString = inputs[1]
+		subString = inputs[0]
+	} else if len(inputs) == 1 {
+		mainString = inputs[0]
+		subString = inputs[0]
 	}
 
 	// if len(flg) == 2 {
@@ -120,9 +121,9 @@ func CheckInput(input []string) (string, string, string, string, string, string)
 	// 	}
 	// }
 	// Extract color and reset codes from colorFlag
-	color, reset = colorPicker(colorFlag)
+	color1, color2, reset = colorPicker(colorFlag)
 
-	return color, reset, mainString, subString, bannerFile, outputFile
+	return color1, color2, reset, mainString, subString, bannerFile, outputFile
 }
 
 // func sortInput(colorFlag string, outputFile string, bannerFile string, flg []flagz) (string, string, string, []flagz) {

@@ -17,7 +17,7 @@ func TestAsciiArt(t *testing.T) {
 	os.Stdout = nil
 
 	// Standard output string from Lib.AsciiArt
-	output := Lib.AsciiArt("\033[33m", "\033[0m", "Hello", "Hello", "standard.txt")
+	output := Lib.AsciiArt("\033[33m", "", "\033[0m", "Hello", "Hello", "standard.txt")
 
 	// Split output into 8 lines
 	lines := strings.Split(output, "\n")
@@ -44,7 +44,7 @@ func TestAsciiArt(t *testing.T) {
 	}
 
 	// Shadow output test
-	output = Lib.AsciiArt("\033[33m", "\033[0m", "Hello", "Hello", "shadow.txt")
+	output = Lib.AsciiArt("\033[33m", "", "\033[0m", "Hello", "Hello", "shadow.txt")
 
 	// Split output into 8 lines
 	lines = strings.Split(output, "\n")
@@ -71,7 +71,7 @@ func TestAsciiArt(t *testing.T) {
 	}
 
 	// THinkertoy output test
-	output = Lib.AsciiArt("\033[33m", "\033[0m", "Hello", "Hello", "thinkertoy.txt")
+	output = Lib.AsciiArt("\033[33m", "", "\033[0m", "Hello", "Hello", "thinkertoy.txt")
 
 	// Split output into 8 lines
 	lines = strings.Split(output, "\n")
