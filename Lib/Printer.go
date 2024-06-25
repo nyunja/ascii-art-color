@@ -6,7 +6,7 @@ import (
 )
 
 // Prints new lines and calls HandleCharacters() on each word
-func HandleWords(color, reset string, subStrings, slices, words []string) string {
+func HandleWords(color1, color2, reset string, subStrings, slices, words []string) string {
 	var start, end int = -1, -1
 	var output string
 	countSpaces := 0
@@ -16,10 +16,11 @@ func HandleWords(color, reset string, subStrings, slices, words []string) string
 		if word == "" {
 			countSpaces++
 			if countSpaces < len(words) {
-				fmt.Println()
+				output += "\n"
+				//fmt.Println()
 			}
 		} else {
-			output = HandleCharacters(start, end, color, reset, word, subStrings, slices)
+			output += HandleCharacters(start, end, color1, color2, reset, word, subStrings, slices)
 			start, end = -1, -1
 		}
 	}
@@ -27,7 +28,7 @@ func HandleWords(color, reset string, subStrings, slices, words []string) string
 }
 
 // Prints the ASCII ART for each character in each word and updates the output string
-func HandleCharacters(start, end int, color, reset, word string, subStrings, slices []string) string {
+func HandleCharacters(start, end int, color1, color2, reset, word string, subStrings, slices []string) string {
 	// Initialize utility variables
 
 	var startIndex int
@@ -50,19 +51,22 @@ func HandleCharacters(start, end int, color, reset, word string, subStrings, sli
 			startIndex = int(ch-32)*9 + 1
 
 			// If j is within start and stop color the output and reset
-			if j >= start && j <= end {
-				output += color + slices[startIndex+i] + reset
-				fmt.Printf("%s%s%s", color, slices[startIndex+i], reset)
+			if len(color1) > 0 && j >= start && j <= end {
+				output += color1 + slices[startIndex+i] + reset
+				//fmt.Printf("%s%s%s", color, slices[startIndex+i], reset)
+			} else if len(color2) > 0 {
+				output += color2 + slices[startIndex+i] + reset
+				//fmt.Printf("%s%s%s", color, slices[startIndex+i], reset)
 			} else {
 				// If the character doesn't match, add regular ASCII art to the output
 				output += slices[startIndex+i]
-				fmt.Printf("%s", slices[startIndex+i])
+				//fmt.Printf("%s", slices[startIndex+i])
 			}
 		}
 
 		// Add a new line after each line for testing
 		output += "\n"
-		fmt.Println()
+		//fmt.Println()
 	}
 
 	// Return the updated output string

@@ -1,12 +1,13 @@
 package Lib
 
 import (
+	"crypto/sha256"
 	"fmt"
 	"os"
 	"strings"
 )
 
-func AsciiArt(color, reset, mainString, subString, bannerFile string) string {
+func AsciiArt(color1, color2, reset, mainString, subString, bannerFile string) string {
 	// Exits program if mainString or subString is empty
 	if mainString == "" || subString == "" {
 		return ""
@@ -46,6 +47,21 @@ func AsciiArt(color, reset, mainString, subString, bannerFile string) string {
 		return ""
 	}
 
+	// Compare checksums
+	h := sha256.New()
+	h.Write(content)
+	s := fmt.Sprintf("%x", h.Sum(nil))
+
+	shadowChecksum := "26b94d0b134b77e9fd23e0360bfd81740f80fb7f6541d1d8c5d85e73ee550f73"
+	standardChecksum := "e194f1033442617ab8a78e1ca63a2061f5cc07a3f05ac226ed32eb9dfd22a6bf"
+	toyChecksum := "64285e4960d199f4819323c4dc6319ba34f1f0dd9da14d07111345f5d76c3fa3"
+
+	// Compare checksums
+	if s != shadowChecksum && s != standardChecksum && s != toyChecksum {
+		fmt.Printf("Invalid file content or content modified, check %s\n", file)
+		return ""
+	}
+
 	// Split and store the file contents line-by-line in a slice string depending on the banner file
 	var slices []string
 	if file == "thinkertoy.txt" {
@@ -63,5 +79,5 @@ func AsciiArt(color, reset, mainString, subString, bannerFile string) string {
 	}
 
 	// Print ASCII ART and return output string for testing
-	return HandleWords(color, reset, subStrings, slices, words)
+	return HandleWords(color1, color2, reset, subStrings, slices, words)
 }
