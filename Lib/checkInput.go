@@ -164,7 +164,7 @@ func sortInput2(colorFlag string, outputFile string, bannerFile string, flg []st
 			} else {
 				PrintError()
 			}
-		} else if i == len(flg)-1 && isBanner(item) {
+		} else if len(bannerFile) == 0 && i == len(flg)-1 && isBanner(item) {
 			bannerFile = item + ".txt"
 			flg = flg[:i]
 		}
