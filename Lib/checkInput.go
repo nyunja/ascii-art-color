@@ -19,6 +19,9 @@ func CheckInput(inputs []string) (string, string, string, string, string, string
 		PrintError()
 	}
 	if len(inputs) == 2 {
+		if len(bannerFile) == 0 && len(colorFlag) == 0 && len(outputFile) == 0 {
+			PrintError()
+		}
 		if inputs[1] == "\\standard" || inputs[1] == "\\shadow" || inputs[1] == "\\thinkertoy" {
 			inputs[1] = inputs[1][1:]
 		}
