@@ -66,7 +66,6 @@ func HandleCharacters(start, end int, color1, color2, reset, word string, subStr
 
 		// Add a new line after each line for testing
 		output += "\n"
-		//fmt.Println()
 	}
 
 	// Return the updated output string

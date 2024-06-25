@@ -89,6 +89,7 @@ go run . "Hello"
 - Available banner styles include: standard, shadow, and thinkertoy.
 - Use `\\standard`, `\\shadow` and `\\thinkertoy` when you want to to use the banner file names as the substring to be colored or the main string.
 - To use 2 colors i.e one for the substring and one for the what is left use the syntax `--color=<color>|<color>`, `<substring-to-be-colored>` and `"something"` or `--color=<color>|<color>` and `"something"`. If you use more than 1 color and no substring the first color will be used. The example prints red shadow output.
+
 ```
 go run . "--color=red|blue|green" "bus bu" shadow
 ```
