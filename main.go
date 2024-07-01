@@ -12,11 +12,7 @@ func main() {
 	inputs := os.Args[1:]
 
 	// Exits the program if the arguments passed are greater than 5
-	if len(inputs) > 5 {
-		Lib.PrintError()
-	}
-	// Exits the program if the arguments passed are less than 1
-	if len(inputs) == 0 {
+	if len(inputs) == 0 || len(inputs) > 5 {
 		Lib.PrintError()
 	}
 

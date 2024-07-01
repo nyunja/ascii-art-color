@@ -65,7 +65,7 @@ func unmatchSubstring(s string) string {
 // Check if a substring exists within a string
 func containsString(s, sub string) bool {
 	for i := 0; i < len(s); i++ {
-		if i + len(sub) <= len(s) && s[i:i+len(sub)] == sub {
+		if i+len(sub) <= len(s) && s[i:i+len(sub)] == sub {
 			return true
 		}
 	}
@@ -76,9 +76,9 @@ func containsString(s, sub string) bool {
 func replaceString(s, sub, rep string) string {
 	res := ""
 	for i := 0; i < len(s); i++ {
-		if i + len(sub) <= len(s) && s[i:i+len(sub)] == sub {
+		if i+len(sub) <= len(s) && s[i:i+len(sub)] == sub {
 			res += rep
-			i += len(sub) -1
+			i += len(sub) - 1
 		}
 		res += string(s[i])
 	}
