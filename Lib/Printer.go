@@ -17,8 +17,9 @@ func HandleWords(color1, color2, reset string, subStrings, slices, words []strin
 			countSpaces++
 			if countSpaces < len(words) {
 				output += "\n"
-				//fmt.Println()
 			}
+
+			// Print Ascii Art
 		} else {
 			output += HandleCharacters(start, end, color1, color2, reset, word, subStrings, slices)
 			start, end = -1, -1
@@ -53,14 +54,14 @@ func HandleCharacters(start, end int, color1, color2, reset, word string, subStr
 			// If j is within start and stop color the output and reset
 			if len(color1) > 0 && j >= start && j <= end {
 				output += color1 + slices[startIndex+i] + reset
-				//fmt.Printf("%s%s%s", color, slices[startIndex+i], reset)
+
+				// Print Ascii Art with second color
 			} else if len(color2) > 0 {
 				output += color2 + slices[startIndex+i] + reset
-				//fmt.Printf("%s%s%s", color, slices[startIndex+i], reset)
-			} else {
+
 				// If the character doesn't match, add regular ASCII art to the output
+			} else {
 				output += slices[startIndex+i]
-				//fmt.Printf("%s", slices[startIndex+i])
 			}
 		}
 
