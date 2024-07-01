@@ -22,6 +22,7 @@ func main() {
 	// Call the AsciiArt function to handle input
 	output := Lib.AsciiArt(color1, color2, reset, mainString, subString, fileName)
 
+	//Write ascii art to outputFile
 	if len(outputFile) > 0 {
 		os.WriteFile(outputFile, []byte(output), 0666)
 	} else {

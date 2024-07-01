@@ -15,21 +15,29 @@ func CheckInput(inputs []string) (string, string, string, string, string, string
 	inputs = inputTrimSpace(inputs, trimSpace)
 	colorFlag, outputFile, bannerFile, inputs = sortInput(colorFlag, outputFile, bannerFile, inputs)
 
+	// Print error message when extra input strings are detected
 	if len(inputs) < 1 || len(inputs) > 2 {
 		PrintError()
 	}
+
 	if len(inputs) == 2 {
+		// Check if user input sub and mainstring without color or other flags, print error massage
 		if len(bannerFile) == 0 && len(colorFlag) == 0 && len(outputFile) == 0 {
 			PrintError()
 		}
+
+		// Shave-off the escape character when banner signals are used a the mainstring
 		if inputs[1] == "\\standard" || inputs[1] == "\\shadow" || inputs[1] == "\\thinkertoy" {
 			inputs[1] = inputs[1][1:]
 		}
 		mainString = inputs[1]
 		subString = inputs[0]
+
+		//When user parses empty sub-string add extra character to unmatch it to mainstring
 		if len(subString) == 0 {
 			subString = unmatchSubstring(mainString)
 		}
+
 	} else if len(inputs) == 1 {
 		mainString = inputs[0]
 		subString = inputs[0]
@@ -41,24 +49,32 @@ func CheckInput(inputs []string) (string, string, string, string, string, string
 	return color1, color2, reset, mainString, subString, bannerFile, outputFile
 }
 
-func sortInput(colorFlag string, outputFile string, bannerFile string, flg []string) (string, string, string, []string) {
-	for i, item := range flg {
+// Sort through arguments, labeling appropriate flags and strings and sub-string
+func sortInput(colorFlag string, outputFile string, bannerFile string, input []string) (string, string, string, []string) {
+	for i, item := range input {
 		if isFlag(item) {
-			if i < len(flg)-1 && isColorFlag(item) {
+			// Detect and label color flag
+			if i < len(input)-1 && isColorFlag(item) {
 				colorFlag = item
-				flg = append(flg[:i], flg[i+1:]...)
-				colorFlag, outputFile, bannerFile, flg = sortInput(colorFlag, outputFile, bannerFile, flg)
-			} else if i < len(flg)-1 && isOutputFlag(item) {
+				input = append(input[:i], input[i+1:]...)
+				colorFlag, outputFile, bannerFile, input = sortInput(colorFlag, outputFile, bannerFile, input)
+
+				// Detect and label output flag
+			} else if i < len(input)-1 && isOutputFlag(item) {
 				outputFile = item[9:]
-				flg = append(flg[:i], flg[i+1:]...)
-				colorFlag, outputFile, bannerFile, flg = sortInput(colorFlag, outputFile, bannerFile, flg)
+				input = append(input[:i], input[i+1:]...)
+				colorFlag, outputFile, bannerFile, input = sortInput(colorFlag, outputFile, bannerFile, input)
+
+				//Anything must have an invalid flag format, print error
 			} else {
 				PrintError()
 			}
-		} else if len(bannerFile) == 0 && i == len(flg)-1 && isBanner(item) {
+
+			// Add '.txt' extension to banner input
+		} else if len(bannerFile) == 0 && i == len(input)-1 && isBanner(item) {
 			bannerFile = item + ".txt"
-			flg = flg[:i]
+			input = input[:i]
 		}
 	}
-	return colorFlag, outputFile, bannerFile, flg
+	return colorFlag, outputFile, bannerFile, input
 }
