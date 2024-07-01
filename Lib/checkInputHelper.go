@@ -51,3 +51,36 @@ func isBanner(s string) bool {
 	}
 	return false
 }
+
+// Modify the main string by adding characters or replacing newline sequences
+func unmatchSubstring(s string) string {
+	if containsString(s, "\\n") {
+		s = replaceString(s, "\\n", "\\ns")
+	} else {
+		s = "s" + s + "s"
+	}
+	return s
+}
+
+// Check if a substring exists within a string
+func containsString(s, sub string) bool {
+	for i := 0; i < len(s); i++ {
+		if i + len(sub) <= len(s) && s[i:i+len(sub)] == sub {
+			return true
+		}
+	}
+	return false
+}
+
+// Replace occurrences of a substring with another substring
+func replaceString(s, sub, rep string) string {
+	res := ""
+	for i := 0; i < len(s); i++ {
+		if i + len(sub) <= len(s) && s[i:i+len(sub)] == sub {
+			res += rep
+			i += len(sub) -1
+		}
+		res += string(s[i])
+	}
+	return res
+}

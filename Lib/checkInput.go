@@ -27,6 +27,9 @@ func CheckInput(inputs []string) (string, string, string, string, string, string
 		}
 		mainString = inputs[1]
 		subString = inputs[0]
+		if len(subString) == 0 {
+			subString = unmatchSubstring(mainString)
+		}
 	} else if len(inputs) == 1 {
 		mainString = inputs[0]
 		subString = inputs[0]
