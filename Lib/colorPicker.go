@@ -87,6 +87,8 @@ func colorPicker(colorFlag string) (string, string, string) {
 						match = true
 					}
 				}
+
+				// Print error and end program if color is not contained in the color librabry
 				if !match {
 					PrintError()
 				}

@@ -7,9 +7,12 @@ func trimSpace(s string) string {
 	}
 	for i := 0; i < len(s); i++ {
 		if len(s) > 1 {
+			// Remove space if it appears as the first character of a string
 			if i == 0 && s[i] == ' ' && s[i+1] != ' ' {
 				s = s[1:]
 				s = trimSpace(s)
+
+				// Remove space if it appears as the last character of a string
 			} else if i == len(s)-1 && s[i] == ' ' && s[i-1] != ' ' {
 				s = s[:len(s)-1]
 				s = trimSpace(s)
@@ -41,10 +44,12 @@ func isOutputFlag(s string) bool {
 	return len(s) > 9 && hasPrefix(s, "--output=") && hasSuffix(s, ".txt")
 }
 
+// Identifis strings that start with '-' or '--'
 func isFlag(s string) bool {
 	return hasPrefix(s, "-") || hasPrefix(s, "--")
 }
 
+// Identifies whether string is a banner signal
 func isBanner(s string) bool {
 	if s == "standard" || s == "shadow" || s == "thinkertoy" {
 		return true
