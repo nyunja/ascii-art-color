@@ -29,7 +29,7 @@ func getOutputSlice(s string) []Output {
 	var countChars int
 	for i, ch := range s {
 		if ch == '\n' {
-			if countChars == len(s[i:i+countChars]) {
+			if countChars == len(s[i-countChars:i]) {
 				outputStruct.word = word
 				outputStructSlice = append(outputStructSlice, outputStruct)
 				outputStruct = Output{}
@@ -46,8 +46,11 @@ func getOutputSlice(s string) []Output {
 			countChars++
 		}
 	}
+	// fmt.Println("count: ", countChars)
+	// fmt.Println("word: ", word)
 	outputStruct.word = word
 	outputStructSlice = append(outputStructSlice, outputStruct)
+	// fmt.Println("output: ", outputStructSlice)
 	return outputStructSlice
 }
 
