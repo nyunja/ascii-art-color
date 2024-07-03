@@ -9,7 +9,7 @@ import (
 
 func AsciiArt(color1, color2, reset, mainString, subString, bannerFile string) string {
 	// Exits program if mainString or subString is empty
-	if mainString == "" || subString == "" {
+	if mainString == "" {
 		return ""
 	}
 
@@ -28,10 +28,6 @@ func AsciiArt(color1, color2, reset, mainString, subString, bannerFile string) s
 	mainString = strings.ReplaceAll(mainString, "\\n", "\n")
 	subString = strings.ReplaceAll(subString, "\\n", "\n")
 
-	// Split inputs into printable lines at the '\n' character
-	//words := strings.Split(mainString, "\n")
-	//subStrings := strings.Split(subString, "\n")
-
 	// Set and check if banner file is valid
 	file := ""
 	if len(bannerFile) == 0 {
@@ -41,7 +37,8 @@ func AsciiArt(color1, color2, reset, mainString, subString, bannerFile string) s
 	}
 
 	// Read banner file
-	content, err := os.ReadFile(file)
+	path := "banner-files/"
+	content, err := os.ReadFile(path + file)
 	if err != nil {
 		fmt.Printf("Error reading %s\n", file)
 		return ""
@@ -70,12 +67,6 @@ func AsciiArt(color1, color2, reset, mainString, subString, bannerFile string) s
 	} else {
 		// Lines in standard.txt and shadow.txt banner files are separated by "\n"
 		slices = strings.Split(string(content), "\n")
-	}
-
-	// Exit program if banner file is incomplete
-	if len(slices) != 856 {
-		fmt.Printf("Invalid file content or content modified, check %s\n", file)
-		return ""
 	}
 
 	// Print ASCII ART and return output string for testing

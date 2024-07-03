@@ -26,10 +26,16 @@ func CheckInput(inputs []string) (string, string, string, string, string, string
 			PrintError()
 		}
 
+		// Print error if there's an output flag but no banner file or color flag
+		if len(outputFile) > 0 && (len(bannerFile) == 0 && len(colorFlag) == 0) {
+			PrintError()
+		}
+
 		// Shave-off the escape character when banner signals are used a the mainstring
 		if inputs[1] == "\\standard" || inputs[1] == "\\shadow" || inputs[1] == "\\thinkertoy" {
 			inputs[1] = inputs[1][1:]
 		}
+
 		mainString = inputs[1]
 		subString = inputs[0]
 
@@ -37,8 +43,11 @@ func CheckInput(inputs []string) (string, string, string, string, string, string
 		if len(subString) == 0 {
 			subString = unmatchSubstring(mainString)
 		}
-
 	} else if len(inputs) == 1 {
+		// Shave-off the escape character when banner signals are used a the mainstring
+		if inputs[0] == "\\standard" || inputs[0] == "\\shadow" || inputs[0] == "\\thinkertoy" {
+			inputs[0] = inputs[0][1:]
+		}
 		mainString = inputs[0]
 		subString = inputs[0]
 	}
