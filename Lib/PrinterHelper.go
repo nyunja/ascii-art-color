@@ -7,6 +7,6 @@ func subToColor(j int, s string, subStrings []string) (bool, int, int) {
 			return true, j, j + len(sub) - 1
 		}
 	}
-
+	
 	return false, 0, 0
 }
