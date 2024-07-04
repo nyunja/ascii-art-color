@@ -12,52 +12,39 @@ type Output struct {
 
 func getOutputSlice(s string) []Output {
 	var outputStructSlice []Output
-	var outputStruct Output
 	var word []Chars
-	var chars Chars
-	var countChars, countNewlines int
+	var countNewlines int
 	for i, ch := range s {
 		if ch == '\n' {
 			countNewlines++
-			if countChars == len(s[i-countChars:i]) {
-				outputStruct.word = word
-				outputStructSlice = append(outputStructSlice, outputStruct)
-				outputStruct = Output{}
-				word = []Chars{}
-				countChars = 0
+			if len(word) > 0 {
+				outputStructSlice = append(outputStructSlice, Output{word: word})
+				word = nil
 			}
 			if countNewlines > 1 {
-				outputStruct.newLine = "\n"
-				outputStructSlice = append(outputStructSlice, outputStruct)
-				outputStruct = Output{}
+				outputStructSlice = append(outputStructSlice, Output{newLine: "\n"})
 			}
 			if countNewlines == len(s) {
-				outputStruct.newLine = "\n"
-				outputStructSlice = append(outputStructSlice, outputStruct)
-				outputStruct = Output{}
+				outputStructSlice = append(outputStructSlice, Output{newLine: "\n"})
 				break
 			}
 		} else {
-			chars.index = i
-			chars.character = ch
-			word = append(word, chars)
-			countChars++
+			word = append(word, Chars{index: i, character: ch})
 			countNewlines = 0
 		}
 	}
-	outputStruct.word = word
-	outputStructSlice = append(outputStructSlice, outputStruct)
+	if len(word) > 0 {
+		outputStructSlice = append(outputStructSlice, Output{word: word})
+	}
 	return outputStructSlice
 }
 
-func indicesToColor(s1, s2 string) map[int]bool {
+func indicesToColor(mainStr, subStr string) map[int]bool {
 	indices := make(map[int]bool)
-	for i := 0; i < len(s1); i++ {
-		for j := 0; j < len(s2); j++ {
-			if i+len(s2) <= len(s1) && s1[i:i+len(s2)] == s2 {
-				indices = getIndicesToColor(i, i+len(s2), indices)
-				i += len(s2) - 1
-			}
+	for i := 0; i <= len(mainStr)-len(subStr); i++ {
+		if mainStr[i:i+len(subStr)] == subStr {
+			indices = getIndicesToColor(i, i+len(subStr), indices)
+			i += len(subStr) - 1
 		}
 	}
 	return indices
