@@ -5,11 +5,11 @@ import (
 	"os"
 )
 
-func getFinalOutput(color1, color2, reset, s1, s2 string, lines []string) string {
+func getFinalOutput(color1, color2, reset, mainStr, subStr string, lines []string) string {
 	var output string
 	var startIdx int
-	outputStructSlice := getOutputSlice(s1)
-	indicesToColor := indicesToColor(s1, s2)
+	outputStructSlice := getOutputSlice(mainStr)
+	indicesToColor := indicesToColor(mainStr, subStr)
 	for _, outputStruct := range outputStructSlice {
 		if outputStruct.newLine == "\n" {
 			output += "\n"
