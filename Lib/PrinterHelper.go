@@ -14,6 +14,7 @@ func getOutputSlice(s string) []Output {
 	var outputStructSlice []Output
 	var word []Chars
 	var countNewlines int
+
 	for i, ch := range s {
 		if ch == '\n' {
 			countNewlines++
