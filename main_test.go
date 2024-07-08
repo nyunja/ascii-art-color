@@ -172,9 +172,9 @@ func TestAsciiArt(t *testing.T) {
 
 func TestEscapeSequence(t *testing.T) {
 	tests := []struct {
-		name string
+		name  string
 		input string
-		want bool
+		want  bool
 	}{
 		{"first test", "\\t", true},
 		{"second test", "\\n", false},

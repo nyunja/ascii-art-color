@@ -62,7 +62,7 @@ func unmatchSubstring(s string) string {
 	if containsString(s, "\\n") {
 		s = replaceString(s, "\\n", "\\ns")
 	} else if containsString(s, "\n") {
-		s = replaceString(s, "\n", "\ns") 
+		s = replaceString(s, "\n", "\ns")
 	} else {
 		s = "s" + s + "s"
 	}
