@@ -10,67 +10,72 @@ type Output struct {
 	word    []Chars
 }
 
-// Returns range of substring to be colored and true if a match is found
-// func subToColor(j int, s string, subStrings []string) (bool, int, int) {
-// 	for _, sub := range subStrings {
-// 		if j <= len(s)-len(sub) && s[j:j+len(sub)] == sub {
-// 			return true, j, j + len(sub) - 1
-// 		}
-// 	}
-
-// 	return false, 0, 0
-// }
-
 func getOutputSlice(s string) []Output {
 	var outputStructSlice []Output
-	var outputStruct Output
 	var word []Chars
-	var chars Chars
-	var countChars int
+	var countNewlines int
+
 	for i, ch := range s {
 		if ch == '\n' {
-			if countChars == len(s[i-countChars:i]) {
-				outputStruct.word = word
-				outputStructSlice = append(outputStructSlice, outputStruct)
-				outputStruct = Output{}
-				word = []Chars{}
-				countChars = 0
+			countNewlines++
+
+			// Append all charaters(& their indices) to OutputStructSlice in event of '\n'
+			if len(word) > 0 {
+				outputStructSlice = append(outputStructSlice, Output{word: word})
+
+				// Empty word for fresh population
+				word = nil
 			}
-			outputStruct.newLine = "\n"
-			outputStructSlice = append(outputStructSlice, outputStruct)
-			outputStruct = Output{}
+
+			// Handle multiple '\n' characters parsed with other characters
+			if countNewlines > 1 {
+				outputStructSlice = append(outputStructSlice, Output{newLine: "\n"})
+			}
+
+			// Print one new line for every '\n' parsed as input
+			if countNewlines == len(s) {
+				outputStructSlice = append(outputStructSlice, Output{newLine: "\n"})
+				break
+			}
+
+			// Append individual characters and their indices to 'word' struct
 		} else {
-			chars.index = i
-			chars.character = ch
-			word = append(word, chars)
-			countChars++
+			word = append(word, Chars{index: i, character: ch})
+			countNewlines = 0
 		}
 	}
-	// fmt.Println("count: ", countChars)
-	// fmt.Println("word: ", word)
-	outputStruct.word = word
-	outputStructSlice = append(outputStructSlice, outputStruct)
-	// fmt.Println("output: ", outputStructSlice)
+
+	// Append any leftover characters that may be in word to OutputStructFile
+	if len(word) > 0 {
+		outputStructSlice = append(outputStructSlice, Output{word: word})
+	}
+
 	return outputStructSlice
 }
 
-func indicesToColor(s1, s2 string) map[int]bool {
+// Returns map with the indices that need coloring
+func indicesToColor(mainStr, subStr string) map[int]bool {
 	indices := make(map[int]bool)
-	for i := 0; i < len(s1); i++ {
-		for j := 0; j < len(s2); j++ {
-			if i+len(s2) <= len(s1) && s1[i:i+len(s2)] == s2 {
-				indices = getIndicesToColor(i, i+len(s2), indices)
-				i += len(s2) - 1
-			}
+
+	// Generate map of indices whenever a section of mainStr matches subStr
+	for i := 0; i <= len(mainStr)-len(subStr); i++ {
+		if mainStr[i:i+len(subStr)] == subStr {
+			indices = getIndicesToColor(i, i+len(subStr), indices)
+
+			// Update i to find next match
+			i += len(subStr) - 1
 		}
 	}
+
 	return indices
 }
 
+// Populates map with indices that need coloring
 func getIndicesToColor(i, j int, indices map[int]bool) map[int]bool {
 	for i < j {
 		indices[i] = true
 		i++
 	}
+
 	return indices
 }
