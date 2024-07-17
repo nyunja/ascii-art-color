@@ -60,7 +60,7 @@ func indicesToColor(mainStr, subStr string) map[int]bool {
 	// Generate map of indices whenever a section of mainStr matches subStr
 	for i := 0; i <= len(mainStr)-len(subStr); i++ {
 		if mainStr[i:i+len(subStr)] == subStr {
-			indices = getIndicesToColor(i, i+len(subStr), indices)
+			indices = getIndicesToColor(i, subStr, indices)
 
 			// Update i to find next match
 			i += len(subStr) - 1
@@ -71,10 +71,12 @@ func indicesToColor(mainStr, subStr string) map[int]bool {
 }
 
 // Populates map with indices that need coloring
-func getIndicesToColor(i, j int, indices map[int]bool) map[int]bool {
-	for i < j {
-		indices[i] = true
-		i++
+func getIndicesToColor(i int, subStr string, indices map[int]bool) map[int]bool {
+	for j, ch := range subStr {
+		if ch != '\n' {
+			indices[i+j] = true
+		}
+		
 	}
 
 	return indices
