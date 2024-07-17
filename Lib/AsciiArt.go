@@ -4,6 +4,7 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"os"
+	"runtime"
 	"strings"
 )
 
@@ -48,25 +49,37 @@ func AsciiArt(color1, color2, reset, mainString, subString, bannerFile string) s
 	h := sha256.New()
 	h.Write(content)
 	s := fmt.Sprintf("%x", h.Sum(nil))
+	//fmt.Println(s)
 
 	shadowChecksum := "26b94d0b134b77e9fd23e0360bfd81740f80fb7f6541d1d8c5d85e73ee550f73"
 	standardChecksum := "e194f1033442617ab8a78e1ca63a2061f5cc07a3f05ac226ed32eb9dfd22a6bf"
+	stHash2 := "73bdb3b25135c3ca16d910bd7fa23a1c3d1d08097b59054b2129e7a42ea65c75"
 	toyChecksum := "64285e4960d199f4819323c4dc6319ba34f1f0dd9da14d07111345f5d76c3fa3"
 
 	// Compare checksums
-	if s != shadowChecksum && s != standardChecksum && s != toyChecksum {
+	if s != shadowChecksum && s != standardChecksum && s != toyChecksum && s != stHash2 {
 		fmt.Printf("Invalid file content or content modified, check %s\n", file)
 		return ""
 	}
 
 	// Split and store the file contents line-by-line in a slice string depending on the banner file
 	var slices []string
-	if file == "thinkertoy.txt" {
-		// Lines in thinkertoy.txt banner file are separated by "\r\n"
-		slices = strings.Split(string(content), "\r\n")
-	} else {
-		// Lines in standard.txt and shadow.txt banner files are separated by "\n"
-		slices = strings.Split(string(content), "\n")
+	ops := runtime.GOOS
+	switch ops {
+	case "windows":
+		if file == "thinkertoy.txt" {
+			slices = strings.Split(string(content), "\n")
+		} else {
+			slices = strings.Split(string(content), "\r\n")
+		}
+	default:
+		if file == "thinkertoy.txt" {
+			// Lines in thinkertoy.txt banner file are separated by "\r\n"
+			slices = strings.Split(string(content), "\r\n")
+		} else {
+			// Lines in standard.txt and shadow.txt banner files are separated by "\n"
+			slices = strings.Split(string(content), "\n")
+		}
 	}
 
 	// Print ASCII ART and return output string for testing
